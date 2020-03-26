@@ -7,16 +7,16 @@ async function addCart(userId) {
 }
 
 async function getCartByUserId(userId) {
-              // מה חוזר בתשובה
+
     let sql = 'SELECT u.user_id, s.cart_id, s.cart_creation_date '+
                 'FROM users u RIGHT JOIN shopping_carts s '+
                 'ON u.user_id = s.user_id '+
                 'where u.user_id = ?';
     
     let parameters = [userId];
-    let purchases = await connection.executeWithParameters(sql, parameters);
-    console.log(purchases);
-    return purchases;
+    let cart = await connection.executeWithParameters(sql, parameters);
+    console.log(cart);
+    return cart;
 }
 
 // async function deleteCart(cartId) {
@@ -34,6 +34,6 @@ module.exports = {
 
 // addCart(987654321);
 
-// getCartByUserId(987654321);
+// getCartByUserId(123456789);
 
 // deleteCart(4);

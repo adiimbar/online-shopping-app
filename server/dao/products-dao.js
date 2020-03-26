@@ -8,9 +8,9 @@ async function addProduct(product) {
 }
 
 // Only by admin
-async function updateProductPrice(setPrice) {
-    let sql = "UPDATE products SET price = ? where product_id=? ";
-    let parameters = [setPrice.price, setPrice.product_id];
+async function updateProduct(product) {
+    let sql = "UPDATE products SET product_name = ?, price = ?, image_path = ? where product_id=? ";
+    let parameters = [product.product_name, product.price, product.image_path, product.product_id];
     await connection.executeWithParameters(sql, parameters);
 }
 
@@ -18,15 +18,15 @@ async function getProduct(id) {
     let sql = "select * from products where product_id=?";
     let parameters = [id];
     let user = await connection.executeWithParameters(sql, parameters);
-    console.log(user);
+    // console.log(user);
     return user;
 }
 
-async function getAllProducts() {
-    let sql = "select * from products";
-    let products = await connection.execute(sql);
-    console.log(products);
-}
+// async function getAllProducts() {
+//     let sql = "select * from products";
+//     let products = await connection.execute(sql);
+//     console.log(products);
+// }
 
 // // Only by admin
 // async function deleteProduct(id) {
@@ -39,28 +39,25 @@ async function getAllProducts() {
 module.exports = {
     // deleteProduct,
     addProduct,
-    updateProductPrice,
-    getProduct,
-    getAllProducts
+    updateProduct,
+    getProduct
+    // getAllProducts
 };
 
 
 let product = {
-    product_name: 'yogurt',
+    product_name: 'Yogurt',
     category_id: 1,
-    price: 4,
-    image_path: 'qwe'
+    price: 42,
+    image_path: 'yogurt.image',
+    product_id: 3
 };
 
-let setPrice = {
-    product_id: 1,
-    price: 7
-}
 
 
 // addProduct(product);
 
-// updateProductPrice(setPrice);
+// updateProduct(product);
 
 // getProduct(1);
 

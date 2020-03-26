@@ -1,5 +1,6 @@
 let connection = require("./connection-wrapper");
 
+// probability need to change the sql call (might need to use join)
 //need to validate no double inserts
 async function addCartItem(cartItem) {
     let sql = 'INSERT INTO cart_items (product_id, quantity, price, shopping_cart_id) values(?, ?, ?, ?)';
@@ -7,12 +8,14 @@ async function addCartItem(cartItem) {
     await connection.executeWithParameters(sql, parameters);
 }
 
+// price might need to be updated due to admin price update
 async function updateCartItem(cartItem) {
     let sql = "UPDATE cart_items SET quantity = ?, price = ? WHERE (product_id=? AND shopping_cart_id=?)";
     let parameters = [cartItem.quantity, cartItem.quantity * cartItem.basePrice, cartItem.product_id, cartItem.shopping_cart_id];
     await connection.executeWithParameters(sql, parameters);
 }
 
+// need to change the passed variable to include only product_id and shopping_cart_id
 async function deleteItemFromCart(cartItem) {
     let sql = "delete from cart_items where (product_id=? AND shopping_cart_id=?)";
     let parameters = [cartItem.product_id, cartItem.shopping_cart_id];
