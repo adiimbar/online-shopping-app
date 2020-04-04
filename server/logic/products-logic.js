@@ -12,17 +12,17 @@ async function updateProduct(product) {
     await productsDao.updateProduct(product);
 }
 
+async function getAllProducts() {
+    // Validations
+    let products = await productsDao.getAllProducts();
+    return products;
+}
+
 async function getProduct(id) {
     let product = await productsDao.getProduct(id);
     // console.log(product);
     return product;
 }
-
-// async function getAllProducts() {
-//     // Validations
-//     let products = await productsDao.getAllProducts();
-//     return products;
-// }
 
 // async function deleteProduct(id) {
 //     await usersDao.deleteProduct(id);
@@ -32,8 +32,8 @@ async function getProduct(id) {
 module.exports = {
     addProduct,
     updateProduct,
+    getAllProducts,
     getProduct
-    // getAllProducts,
     // deleteProduct
 };
 

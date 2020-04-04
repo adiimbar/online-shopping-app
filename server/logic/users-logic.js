@@ -5,6 +5,8 @@ async function addUser(user) {
     await usersDao.addUser(user);
 }
 
+
+// need to validate for user type AND privent admins from abuse
 // Only by admin
 async function updateUserType(user) {
     // Validations
@@ -18,20 +20,27 @@ async function getUser(id) {
     return user;
 }
 
-// // Only by admin
-// async function deleteUser(id) {
-//     await usersDao.deleteUser(id);
-// }
+// Only by admin
+async function deleteUser(userId) {
+        // Validations
+    await usersDao.deleteUser(userId);
+}
 
 async function changePassword(user) {
     // Validations
     await usersDao.changePassword(user);
 }
 
+async function updateUserAddress(user) {
+    // Validations
+    // await (userValidation(user))
+    await usersDao.updateUserAddress(user);
+}
 
 async function login(user) {
     // Validations
-    await usersDao.login(user);
+    let usersLoginResult = await usersDao.login(user);
+    return usersLoginResult;
 }
 // console.log('1');
 // let user = {email: 'miky@gmail.com', password: '5678'};
@@ -51,8 +60,9 @@ module.exports = {
     addUser,
     updateUserType,
     getUser,
-    // deleteUser,
+    deleteUser,
     changePassword,
+    updateUserAddress,
     login,
     getAllUsers
 };

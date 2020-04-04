@@ -1,10 +1,11 @@
 let cartItemsLogic = require("../logic/cartItems-logic");
 const express = require("express");
+const url = require('url');
 const router = express.Router();
 
 // add cart item
-// put http://localhost:3000/cartItems/addCartItem
-router.put("/addCartItem", async (request, response) => {
+// put http://localhost:3000/cartItems/
+router.post("/", async (request, response) => {
 
     // might need to change the object passed
     let cartItemObject = request.body;
@@ -12,48 +13,87 @@ router.put("/addCartItem", async (request, response) => {
     try {
         let cartItem = await cartItemsLogic.addCartItem(cartItemObject);
         response.json(cartItem);
-    }
-    catch (error) {
+
+    } catch (error) {
+        console.log(error);
         response.status(401).json({ error: "something went terribly wrong..." });
     }
 });
 
-
 // update cart item
-// POST http://localhost:3000/cartItems/updateCartItem
-router.put("/updateCartItem", async (request, response) => {
+// POST http://localhost:3000/cartItems/
+router.put("/", async (request, response) => {
 
     let cartItem = request.body;
 
     try {
         await cartItemsLogic.updateCartItem(cartItem);
         response.status(200).send("secessus! product updated");
-    }
-    catch (error) {
+
+    } catch (error) {
+        console.log(error);
         response.status(401).json({ error: "Invalid product details" });
     }
 });
 
+// empty cart items
+router.delete("/emptyCartItems/:id", async (request, response) => {
 
+    let cartId = request.params.id;
+
+    try {
+        await cartItemsLogic.deleteItemFromCart(cartId);
+        response.status(200).send("shopping cart is empty now");
+
+    } catch (error) {
+        console.log(error);
+        response.status(401).json({ error: "Invalid product details" });
+    }
+});
 
 // delete cart item
 // POST http://localhost:3000/cartItems/updateCartItem
-router.delete("/deleteCartItem", async (request, response) => {
+router.delete("/:id", async (request, response) => {
 
-    let cartItem = request.body;
+    let itemId = request.params.id;
 
     try {
-        await cartItemsLogic.deleteItemFromCart(cartItem);
+        await cartItemsLogic.deleteItemFromCart(itemId);
         response.status(200).send("item deleted from cart");
-    }
-    catch (error) {
+
+    } catch (error) {
+        console.log(error);
         response.status(401).json({ error: "Invalid product details" });
     }
 });
 
+router.get("/allCartItems", async (request, response) => {
 
-// need to add get getCartItem and getAllCartItems
+    try {
+        let cartItems = await cartItemsLogic.getAllCartItems(queryRequest);
+        response.json(cartItems);    
+        
+    } catch (error) {
+        console.log(error);
+        response.status(404).send("something went terribly wrong...");
+    }
+});
 
+// get cart item by userID
+router.get("/", async (request, response) => {
+
+    let queryRequest = url.parse(request.url,true).query;
+
+    try {
+        let cartItem = await cartItemsLogic.getCartItem(queryRequest);
+        response.json(cartItem);
+        
+    } catch (error) {
+        console.log(error);
+        response.status(404).send("something went terribly wrong...");
+    }
+
+});
 
 
 module.exports = router;

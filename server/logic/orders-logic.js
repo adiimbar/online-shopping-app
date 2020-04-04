@@ -1,13 +1,37 @@
 let ordersDao = require("../dao/orders-dao");
 
-async function addOrderFromCart(userId) {
-    let order = await ordersDao.addOrderFromCart(userId);
-    console.log(order);
-    return order;
+async function getAllOrders() {
+    // Validations
+    let allUsers = await ordersDao.getAllOrders();
+    // console.log(allUsers);
+    return allUsers;
+}
+
+async function getAllUserOrders(userId) {
+    // Validations
+    let userOrders = await ordersDao.getAllUserOrders(userId);
+    // console.log(userOrders);
+    return userOrders;
+}
+async function addOrder(order) {
+    // Validations
+    await ordersDao.addOrder(order);
+}
+async function updateOrder(order) {
+    // Validations
+    await ordersDao.updateOrder(order);
+}
+async function deleteOrder(orderId) {
+    // Validations
+    await ordersDao.deleteOrder(orderId);
 }
 
 module.exports = {
-    addOrderFromCart
+    getAllOrders,
+    getAllUserOrders,
+    addOrder,
+    updateOrder,
+    deleteOrder
 };
 
 

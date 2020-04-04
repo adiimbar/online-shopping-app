@@ -2,29 +2,76 @@ let ordersLogic = require("../logic/orders-logic");
 const express = require("express");
 const router = express.Router();
 
-// add order
-// POST http://localhost:3000/orders/
-router.post("/", async (request, response) => {
-
-    let userId = request.body;
+// get all orders
+router.get("/", async (request, response) => {
 
     try {
-        console.log('im trying');
-        let successfullOrderSubmit = await ordersLogic.addOrderFromCart(userId);
-        response.json(successfullOrderSubmit);
-    }
-    catch (error) {
-        response.status(401).json({ error: "something went terribly wrong..." });
+        let allOrders = await ordersLogic.getAllOrders(userId);
+        response.json(allOrders);
+
+    } catch (error) {
+        console.log(error);
+        response.status(401).send("something went terribly wrong...");
     }
 });
 
 
+// get user orders
+router.get("/:id", async (request, response) => {
+
+    let userId = request.params.id;
+
+    try {
+        let userOrders = await ordersLogic.getAllUserOrders(userId);
+        response.json(userOrders);
+
+    } catch (error) {
+        console.log(error);
+        response.status(401).send("something went terribly wrong...");
+    }
+});
 
 
+router.post("/", async (request, response) => {
 
+    let order = request.body;
 
+    try {
+        await ordersLogic.getAllUserOrders(order);
+        response.status(200);
 
+    } catch (error) {
+        console.log(error);
+        response.status(401).send("something went terribly wrong...");
+    }
+});
+
+router.put("/", async (request, response) => {
+
+    let order = request.body;
+
+    try {
+        await ordersLogic.updateOrder(order);
+        response.status(200);
+
+    } catch (error) {
+        console.log(error);
+        response.status(401).send("something went terribly wrong...");
+    }
+});
+
+router.delete("/:id", async (request, response) => {
+
+    let orderId = request.params.id;
+
+    try {
+        await ordersLogic.deleteOrder(orderId);
+        response.status(200).send("order deleted");
+
+    } catch (error) {
+        console.log(error);
+        response.status(401).send("something went terribly wrong...");
+    }
+});
 
 module.exports = router;
-
-

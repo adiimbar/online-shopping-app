@@ -18,18 +18,21 @@ async function getCartByUserId(userID) {
 //     await cartsDao.updateCart(cart);
 // }
 
-// async function getAllCarts() {
-//     // Validations
-//     let carts = await cartsDao.getAllCarts();
-//     return carts;
-// }
+async function getAllCarts() {
+    // Validations
+    let carts = await cartsDao.getAllCarts();
+    return carts;
+}
 
-// async function deleteCart(id) {
-//     await cartsDao.deleteCarts(id);
-// }
+async function deleteCart(cartId) {
+    // Validations
+    await cartsDao.deleteCarts(cartId);
+}
 
 
 module.exports = {
     addCart,
-    getCartByUserId
+    getCartByUserId,
+    getAllCarts,
+    deleteCart
 };
