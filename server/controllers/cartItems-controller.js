@@ -42,7 +42,7 @@ router.delete("/emptyCartItems/:id", async (request, response) => {
     let cartId = request.params.id;
 
     try {
-        await cartItemsLogic.deleteItemFromCart(cartId);
+        await cartItemsLogic.emptyCartItems(cartId);
         response.status(200).send("shopping cart is empty now");
 
     } catch (error) {
@@ -53,12 +53,12 @@ router.delete("/emptyCartItems/:id", async (request, response) => {
 
 // delete cart item
 // POST http://localhost:3000/cartItems/updateCartItem
-router.delete("/:id", async (request, response) => {
+router.delete("/:cart_and_product", async (request, response) => {
 
-    let itemId = request.params.id;
+    let queryRequest = url.parse(request.url,true).query;
 
     try {
-        await cartItemsLogic.deleteItemFromCart(itemId);
+        await cartItemsLogic.deleteItemFromCart(queryRequest);
         response.status(200).send("item deleted from cart");
 
     } catch (error) {
@@ -67,10 +67,12 @@ router.delete("/:id", async (request, response) => {
     }
 });
 
-router.get("/allCartItems", async (request, response) => {
+router.get("/allCartItems/:id", async (request, response) => {
+
+    let cartId = request.params.id;
 
     try {
-        let cartItems = await cartItemsLogic.getAllCartItems(queryRequest);
+        let cartItems = await cartItemsLogic.getAllCartItems(cartId);
         response.json(cartItems);    
         
     } catch (error) {
@@ -79,8 +81,9 @@ router.get("/allCartItems", async (request, response) => {
     }
 });
 
-// get cart item by userID
-router.get("/", async (request, response) => {
+// get cart item by product id and shopping cart id
+// url example: cartItems/action?productId=5&cartId=8
+router.get("/:cart_and_product", async (request, response) => {
 
     let queryRequest = url.parse(request.url,true).query;
 

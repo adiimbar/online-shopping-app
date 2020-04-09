@@ -13,14 +13,22 @@ async function getAllUserOrders(userId) {
     // console.log(userOrders);
     return userOrders;
 }
+
 async function addOrder(order) {
     // Validations
     await ordersDao.addOrder(order);
 }
+
 async function updateOrder(order) {
     // Validations
     await ordersDao.updateOrder(order);
 }
+
+async function updateOrderStatus(order) {
+    // Validations
+    await ordersDao.updateOrderStatus(order);
+}
+
 async function deleteOrder(orderId) {
     // Validations
     await ordersDao.deleteOrder(orderId);
@@ -31,6 +39,7 @@ module.exports = {
     getAllUserOrders,
     addOrder,
     updateOrder,
+    updateOrderStatus,
     deleteOrder
 };
 

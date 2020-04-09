@@ -26,7 +26,7 @@ router.post("/", async (request, response) => {
 
     try {
         await usersLogic.addUser(user);
-        response.status(200);
+        response.status(200).send("user added");
 
     } catch (error) {
         console.log(error);
@@ -111,7 +111,7 @@ router.put("/", async (request, response) => {
 // delete user
 router.delete("/:id", async (request, response) => {
     try {
-        await usersLogic.getUser(request.params.id);
+        await usersLogic.deleteUser(request.params.id);
         response.status(200).send("user deleted");
         
     } catch (error) {

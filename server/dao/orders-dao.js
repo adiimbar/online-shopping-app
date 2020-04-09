@@ -23,10 +23,17 @@ async function addOrder(order) {
 }
 
 async function updateOrder(order) {
-  let sql = 'UPDATE orders SET cart_id=?, total_price=?, shipping_city=?, shipping_street=?, shipping_date=?, last_4_credit_digits=? WHERE user_id=?';
-  let parameters = [order.cartId, order.totalPrice, order.shipping_City, order.shipping_Street, order.deliveryDate, order.last_4_credit_digits];
+  let sql = 'UPDATE orders SET cart_id=?, total_price=?, shipping_city=?, shipping_street=?, shipping_date=?, last_4_credit_digits=? WHERE order_id=?';
+  let parameters = [order.cartId, order.totalPrice, order.shipping_City, order.shipping_Street, order.deliveryDate, order.last_4_credit_digits, order.orderId];
   await connection.executeWithParameters(sql, parameters);
 }
+
+async function updateOrderStatus(order) {
+  let sql = 'UPDATE orders SET status=? WHERE order_id=?';
+  let parameters = [order.status, order.orderId];
+  await connection.executeWithParameters(sql, parameters);
+}
+
 
 // not sure if it should be available
 async function deleteOrder(orderId) {
@@ -67,6 +74,7 @@ module.exports = {
   getAllUserOrders,
   addOrder,
   updateOrder,
+  updateOrderStatus,
   deleteOrder
 };
 

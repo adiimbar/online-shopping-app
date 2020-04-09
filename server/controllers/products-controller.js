@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 
-router.post("/addProduct", async (request, response) => {
+router.post("/", async (request, response) => {
 
     let product = request.body;
 
@@ -17,7 +17,7 @@ router.post("/addProduct", async (request, response) => {
     }
 });
 
-router.put("/updateProduct", async (request, response) => {
+router.put("/", async (request, response) => {
 
     let user = request.body;
 

@@ -3,7 +3,7 @@ let connection = require("./connection-wrapper");
 // need to move CURRENT_TIMESTAMP from sql to parameters
 async function addCart(userId) {
     let sql = 'INSERT INTO shopping_carts (user_id, cart_creation_date) VALUES(?, CURRENT_TIMESTAMP)';
-    let parameters = [userId];
+    let parameters = [userId.user_id];
     await connection.executeWithParameters(sql, parameters);
 }
 
@@ -31,7 +31,7 @@ async function deleteCart(cartId) {
     let parameters = [cartId];
 
     let sql1 = "DELETE FROM cart_items WHERE shopping_cart_id=?"
-    await connection.executeWithParameters(sql1, parameters1);
+    await connection.executeWithParameters(sql1, parameters);
 
     let sql = "DELETE FROM shopping_carts WHERE cart_id=?"
     let deleteResponce = await connection.executeWithParameters(sql, parameters);
@@ -45,9 +45,9 @@ module.exports = {
     deleteCart
 };
 
-// addCart(987654321);
+// addCart(1);
 
-// getCartByUserId(123456789);
+// getCartByUserId(1);
 
 // deleteCart(4);
 

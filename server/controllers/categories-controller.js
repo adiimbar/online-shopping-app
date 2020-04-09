@@ -4,11 +4,10 @@ const router = express.Router();
 
 
 // get all categories
-// GET http://localhost:3000/users/
 router.get("/", async (request, response) => {
     try {
         let categories = await categoriesLogic.getAllCategories();
-        console.log(categories)
+        console.log(categories);
         response.json(categories);
         
     } catch (error) {
@@ -22,7 +21,7 @@ router.get("/", async (request, response) => {
 router.get("/:id", async (request, response) => {
     try {
         let categoryProducts = await categoriesLogic.getAllCategoryProducts(request.params.id);
-        console.log(categoryProducts)
+        console.log(categoryProducts);
         response.json(categoryProducts);
         
     } catch (error) {

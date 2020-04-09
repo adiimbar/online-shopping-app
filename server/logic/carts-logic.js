@@ -26,7 +26,7 @@ async function getAllCarts() {
 
 async function deleteCart(cartId) {
     // Validations
-    await cartsDao.deleteCarts(cartId);
+    await cartsDao.deleteCart(cartId);
 }
 
 

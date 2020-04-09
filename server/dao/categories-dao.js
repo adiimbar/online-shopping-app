@@ -17,7 +17,7 @@ async function addCategory(category) {
 
 // update the categorys
 async function updateCategory(category) {
-    let sql = "UPDATE categories SET  category_name=? WHERE id=?";
+    let sql = "UPDATE categories SET  category_name=? WHERE category_id=?";
     let parameters = [category.categoryName, category.id];
     await connection.executeWithParameters(sql, parameters);
 }

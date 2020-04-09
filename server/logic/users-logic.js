@@ -14,6 +14,7 @@ async function updateUserType(user) {
     await usersDao.updateUserType(user);
 }
 
+// need to consider not giving user type for COSTUMER request 
 async function getUser(id) {
     let user = await usersDao.getUser(id);
     // console.log(user);
@@ -70,15 +71,15 @@ module.exports = {
 
 
 
-let user = {
-    user_id: "000000000",
-    name: "samwise",
-    surname: "gamgee",
-    email: "awesomehobbit@gmail.com",
-    password: "1234",
-    city: "the shire",
-    street: "shire street"
-}
+// let user = {
+//     identification: "000000000",
+//     name: "samwise",
+//     surname: "gamgee",
+//     email: "esomehobbit@gmail.com",
+//     password: "1234",
+//     city: "the shire",
+//     street: "shire street"
+// }
 
 // addUser(user);
 

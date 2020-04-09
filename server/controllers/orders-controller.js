@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", async (request, response) => {
 
     try {
-        let allOrders = await ordersLogic.getAllOrders(userId);
+        let allOrders = await ordersLogic.getAllOrders();
         response.json(allOrders);
 
     } catch (error) {
@@ -37,8 +37,8 @@ router.post("/", async (request, response) => {
     let order = request.body;
 
     try {
-        await ordersLogic.getAllUserOrders(order);
-        response.status(200);
+        await ordersLogic.addOrder(order);
+        response.status(200).send();
 
     } catch (error) {
         console.log(error);
@@ -52,7 +52,21 @@ router.put("/", async (request, response) => {
 
     try {
         await ordersLogic.updateOrder(order);
-        response.status(200);
+        response.status(200).send();
+
+    } catch (error) {
+        console.log(error);
+        response.status(401).send("something went terribly wrong...");
+    }
+});
+
+router.put("/updateOrderStatus", async (request, response) => {
+
+    let order = request.body;
+
+    try {
+        await ordersLogic.updateOrderStatus(order);
+        response.status(200).send();
 
     } catch (error) {
         console.log(error);

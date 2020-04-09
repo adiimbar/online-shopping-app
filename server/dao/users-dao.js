@@ -1,8 +1,8 @@
 let connection = require("./connection-wrapper");
 
 async function addUser(user) {
-    let sql = 'INSERT INTO users (user_id, name, surname, email, password, city, street) VALUES(?, ?, ?, ?, ?, ?, ?)';
-    let parameters = [user.user_id, user.name, user.surname, user.email, user.password, user.city, user.street];
+    let sql = 'INSERT INTO users (identification, name, surname, email, password, city, street) VALUES(?, ?, ?, ?, ?, ?, ?)';
+    let parameters = [user.identification, user.name, user.surname, user.email, user.password, user.city, user.street];
     await connection.executeWithParameters(sql, parameters);
 }
 
@@ -15,9 +15,9 @@ async function updateUserType(user) {
     await connection.executeWithParameters(sql, parameters);
 }
 
-async function getUser(id) {
-    let sql = "SELECT * FROM users WHERE id=?";
-    let parameters = [id];
+async function getUser(userId) {
+    let sql = "SELECT * FROM users WHERE user_id=?";
+    let parameters = [userId];
     let user = await connection.executeWithParameters(sql, parameters);
     // console.log(user);
     return user;
@@ -53,7 +53,7 @@ async function updateUserAddress(user) {
 async function getAllUsers() {
     let sql = "SELECT * FROM users";
     let users = await connection.execute(sql);
-    console.log(users);
+    // console.log(users);
     return users;
 }
 
@@ -61,7 +61,7 @@ async function login(user) {
     let sql = "SELECT * FROM users WHERE email =? AND password =?";
     let parameters = [user.email, user.password];
     let usersLoginResult = await connection.executeWithParameters(sql, parameters);
-    console.log(usersLoginResult);
+    // console.log(usersLoginResult);
     return usersLoginResult;
     // return usersLoginResult[0];
 
@@ -85,6 +85,22 @@ module.exports = {
 
 
 
+let userToUpdate = {
+    id: '5',
+    type: 'ADMIN'
+}
+
+let user = {
+    identification: '56789',
+    name: 'samwise',
+    surname: 'gamgee',
+    email: 'bobit@gmail.com',
+    password: '1234',
+    city: 'the shire',
+    street: 'sam street'
+}
+
+
 
 
 
@@ -93,7 +109,7 @@ module.exports = {
 
 // updateUserType(userToUpdate)
 
-// getUser(11);
+// getUser(1);
 
 // deleteUser(4);
 
@@ -104,21 +120,3 @@ module.exports = {
 // login(user);
 
 // let user = {userName: 'adi', password: '1234'};
-
-
-
-
-let userToUpdate = {
-    id: '5',
-    type: 'ADMIN'
-}
-
-let user = {
-    user_id: '987564361',
-    name: 'miky',
-    surname: 'shmuz',
-    email: 'miky@gmail.com',
-    password: '5678'
-    // city: 'new city',
-    // street: 'new street'
-}

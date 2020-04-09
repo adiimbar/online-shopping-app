@@ -2,7 +2,8 @@ let categoriesDao = require("../dao/categories-dao");
 
 async function getAllCategories() {
     // Validations
-    await categoriesDao.getAllCategories();
+    let categories = await categoriesDao.getAllCategories();
+    return categories;
 }
 
 async function addCategory(category) {
@@ -17,12 +18,14 @@ async function updateCategory(category) {
 
 async function getAllCategoryProducts(categoryId) {
     // Validations
-    await categoriesDao.getAllCategoryProducts(categoryId);
+    let products = await categoriesDao.getAllCategoryProducts(categoryId);
+    return products;
 }
 
 async function deleteCategory(categoryId) {
     // Validations
-    await categoriesDao.deleteCategory(categoryId);
+    let deleteResponce = await categoriesDao.deleteCategory(categoryId);
+    return deleteResponce;
 }
 
 

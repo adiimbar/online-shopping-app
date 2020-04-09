@@ -4,12 +4,12 @@ const router = express.Router();
 
 // add cart
 // POST http://localhost:3000/carts/addCart
-router.post("/addCart", async (request, response) => {
+router.post("/", async (request, response) => {
 
-    let userID = request.body;
+    let userId = request.body;
 
     try {
-        let cart = await cartsLogic.addCart(userID.userId);
+        let cart = await cartsLogic.addCart(userId);
         response.json(cart);
 
     } catch (error) {
@@ -21,6 +21,7 @@ router.post("/addCart", async (request, response) => {
 
 // get all carts
 router.get("/", async (request, response) => {
+
     try {
         let carts = await cartsLogic.getAllCarts();
         response.json(carts);
@@ -34,6 +35,7 @@ router.get("/", async (request, response) => {
 
 // get cart by userID
 router.get("/:userID", async (request, response) => {
+
     try {
         let cart = await cartsLogic.getCartByUserId(request.params.userID);
         response.json(cart);

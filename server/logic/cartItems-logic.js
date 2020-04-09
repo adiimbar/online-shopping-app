@@ -46,7 +46,6 @@ module.exports = {
     updateCartItem,
     deleteItemFromCart,
     emptyCartItems,
-    // getCartItemSwitch,
     getCartItem,
     getAllCartItems
 };
