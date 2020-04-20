@@ -38,7 +38,7 @@ router.get("/", async (request, response) => {
 
     } catch (error) {
         console.log(error);
-        response.status(404).send("something went terribly wrong...");
+        response.status(401).send("something went terribly wrong...");
     }
 
 });
@@ -51,7 +51,7 @@ router.get("/:id", async (request, response) => {
 
     } catch (error) {
         console.log(error);
-        response.status(404).send("something went terribly wrong...");
+        response.status(401).send("something went terribly wrong...");
     }
 
 });

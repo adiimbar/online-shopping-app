@@ -2,7 +2,7 @@ let connection = require("./connection-wrapper");
 
 async function addUser(user) {
     let sql = 'INSERT INTO users (identification, name, surname, email, password, city, street) VALUES(?, ?, ?, ?, ?, ?, ?)';
-    let parameters = [user.identification, user.name, user.surname, user.email, user.password, user.city, user.street];
+    let parameters = [user.identification, user.firstName, user.lastName, user.userName, user.password, user.city, user.street];
     await connection.executeWithParameters(sql, parameters);
 }
 
@@ -59,7 +59,7 @@ async function getAllUsers() {
 
 async function login(user) {
     let sql = "SELECT * FROM users WHERE email =? AND password =?";
-    let parameters = [user.email, user.password];
+    let parameters = [user.userName, user.password];
     let usersLoginResult = await connection.executeWithParameters(sql, parameters);
     // console.log(usersLoginResult);
     return usersLoginResult;
@@ -91,13 +91,13 @@ let userToUpdate = {
 }
 
 let user = {
-    identification: '56789',
-    name: 'samwise',
-    surname: 'gamgee',
-    email: 'bobit@gmail.com',
-    password: '1234',
-    city: 'the shire',
-    street: 'sam street'
+    "identification": "1",
+    "firstName": "samwise",
+    "lastName": "gamgee",
+    "userName": "bobit@gmail.com",
+    "password": "1234",
+    "city": "the shire",
+    "street": "sam's street"
 }
 
 

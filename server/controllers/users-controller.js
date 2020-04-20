@@ -57,7 +57,7 @@ router.get("/", async (request, response) => {
         response.json(users);
         
     } catch (error) {
-        response.status(404).send("No users in database");
+        response.status(401).send("No users in database");
     }
 
 });
@@ -70,7 +70,7 @@ router.get("/:id", async (request, response) => {
         
     } catch (error) {
         console.log(error);
-        response.status(404).send("No user in database");
+        response.status(401).send("No user in database");
     }
 
 });
@@ -116,7 +116,7 @@ router.delete("/:id", async (request, response) => {
         
     } catch (error) {
         console.log(error);
-        response.status(404).send("No user in database");
+        response.status(401).send("No user in database");
     }
 
 });

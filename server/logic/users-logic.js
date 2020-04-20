@@ -1,7 +1,13 @@
 let usersDao = require("../dao/users-dao");
+// need to change userValidation to UserValidation
+const userValidation = require("../models/users");
+const validation = require("../validation/validation");
+
 
 async function addUser(user) {
     // Validations
+    validateUser(user);
+
     await usersDao.addUser(user);
 }
 
@@ -40,7 +46,9 @@ async function updateUserAddress(user) {
 
 async function login(user) {
     // Validations
+    validateUser(user);
     let usersLoginResult = await usersDao.login(user);
+    // validation.validResponse(usersLoginResult)
     return usersLoginResult;
 }
 // console.log('1');
@@ -54,6 +62,18 @@ async function getAllUsers() {
     let users = await usersDao.getAllUsers();
     return users;
 }
+
+
+
+function validateUser(user) {
+    // Validate the cat to add:
+    const errorDetails = userValidation.validate(user);
+    if (errorDetails) {
+        throw new Error("invalid user");
+    }
+
+}
+
 
 
 

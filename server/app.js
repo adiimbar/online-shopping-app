@@ -6,9 +6,14 @@ const cartsController = require("./controllers/carts-controller");
 const cartItemsController = require("./controllers/cartItems-controller");
 const categoriesController = require("./controllers/categories-controller");
 
+// const loginFilter = require('./middleware/login-filter');
+// const errorHandler = require('./middleware/error-handler');
+
+
 const server = express();
 
-
+// server.use(loginFilter());
+// server.use(errorHandler);
 
 server.use(express.json());
 
