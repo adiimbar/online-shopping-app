@@ -1,12 +1,21 @@
 let usersDao = require("../dao/users-dao");
-// need to change userValidation to UserValidation
-const userValidation = require("../models/users");
+const jwt = require('jsonwebtoken');
+const config = require('../config.json');
+let ServerError = require("./../errors/server-error");
+let ErrorType = require("../errors/error-type");
+
+// const userValidation = require("../models/users");
 const validation = require("../validation/validation");
+
+// const userSchemas = require('../models/userSchemas');
+// const middleware = require('../middleware/Joi-middlewere');
 
 
 async function addUser(user) {
-    // Validations
-    validateUser(user);
+    await validation.userRegistrationValidation(user);
+
+        // need to hash password and send it to the dao
+
 
     await usersDao.addUser(user);
 }
@@ -45,15 +54,26 @@ async function updateUserAddress(user) {
 }
 
 async function login(user) {
-    // Validations
-    validateUser(user);
+
+    await validation.userLoginValidation(user);
+
+    // need to hash password and send it to the dao
+
     let usersLoginResult = await usersDao.login(user);
-    // validation.validResponse(usersLoginResult)
-    return usersLoginResult;
+
+    // console.log(usersLoginResult);
+    if (usersLoginResult == null || usersLoginResult.length == 0) {
+        throw new ServerError(ErrorType.UNAUTHORIZED);
+    }
+
+    let email = usersLoginResult[0].email;
+    let userType = usersLoginResult[0].type;
+    const token = jwt.sign({ sub: email }, config.secret);
+
+    // need to save to cache
+
+    return {token:token, userType:userType};
 }
-// console.log('1');
-// let user = {email: 'miky@gmail.com', password: '5678'};
-// login(user);
 
 
 
@@ -65,14 +85,16 @@ async function getAllUsers() {
 
 
 
-function validateUser(user) {
-    // Validate the cat to add:
-    const errorDetails = userValidation.validate(user);
-    if (errorDetails) {
-        throw new Error("invalid user");
-    }
+// function validateUser(user) {
 
-}
+//     const errorDetails =  middleware(userSchemas.login, user);
+//     console.log(errorDetails);
+
+//     if (errorDetails) {
+//         throw new Error("invalid user");
+//     }
+
+// }
 
 
 

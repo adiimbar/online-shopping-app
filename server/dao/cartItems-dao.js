@@ -40,9 +40,11 @@ async function getCartItem(cartItem) {
 }
 
 async function getAllCartItems(cartId) {
-    let sql = 'SELECT c.id, c.product_id, c.quantity, c.products_price, s.cart_id '+
+    let sql = 'SELECT p.product_id, p.image_path, p.product_name, p.price, c.quantity, (p.price*c.quantity) AS sum '+
                 'FROM cart_items c LEFT JOIN shopping_carts s '+
                 'ON c.shopping_cart_id = s.cart_id '+
+                'RIGHT JOIN products p '+
+                'ON p.product_id = c.product_id '+
                 'WHERE c.shopping_cart_id = ?';
     
     let parameters = [cartId];
@@ -50,6 +52,20 @@ async function getAllCartItems(cartId) {
     // console.log(cartItems);
     return cartItems;
 }
+
+
+        // the original get all cart items function
+// async function getAllCartItems(cartId) {
+//     let sql = 'SELECT c.id, c.product_id, c.quantity, c.products_price, s.cart_id '+
+//                 'FROM cart_items c LEFT JOIN shopping_carts s '+
+//                 'ON c.shopping_cart_id = s.cart_id '+
+//                 'WHERE c.shopping_cart_id = ?';
+    
+//     let parameters = [cartId];
+//     let cartItems = await connection.executeWithParameters(sql, parameters);
+//     // console.log(cartItems);
+//     return cartItems;
+// }
 
 async function emptyCartItems(shopping_cart_id) {
     let sql = "DELETE FROM cart_items WHERE shopping_cart_id=?";
@@ -90,3 +106,6 @@ module.exports = {
 // getAllCartItems(4)
 
 // deleteItemFromCart(cartItem);
+
+let cartId = 8;
+getAllCartItems(cartId);

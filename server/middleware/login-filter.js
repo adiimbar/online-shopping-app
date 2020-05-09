@@ -12,7 +12,7 @@ function authenticateJwtRequestToken() {
             // public routes that don't require authentication
             '/users/login',
             '/users/register',
-            '/users/forgotPassword',
+            // '/users/forgotPassword',
             // '/orders/amountOfOrders',
             // '/products/amountOfProducts'
 

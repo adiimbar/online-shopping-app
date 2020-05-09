@@ -1,6 +1,8 @@
 let usersLogic = require("../logic/users-logic");
 const express = require("express");
 const router = express.Router();
+// const jwt = require('jsonwebtoken');
+// const config = require('../config.json');
 
 // login
 router.post("/login", async (request, response) => {
@@ -10,8 +12,12 @@ router.post("/login", async (request, response) => {
     try {
         let successfullLoginData = await usersLogic.login(user);
         response.json(successfullLoginData);
-        // let token = {token:"1234" , userType:"CUSTOMER"};
-        // response.json(token);
+
+        // let email = successfullLoginData[0].email;
+        // let userType = successfullLoginData[0].type;
+
+        // const token = jwt.sign({ sub: email }, config.secret);
+        // response.send({token:token, userType:userType});
 
     } catch (error) {
         console.log(error);
@@ -22,7 +28,7 @@ router.post("/login", async (request, response) => {
 // add user
 router.post("/", async (request, response) => {
 
-    let user = request.body;
+    let user = request.body;    
 
     try {
         await usersLogic.addUser(user);
@@ -92,7 +98,6 @@ router.put("/updatePassword", async (request, response) => {
 });
 
 // update - change user address
-// POST http://localhost:3000/users/
 router.put("/", async (request, response) => {
 
     let user = request.body;

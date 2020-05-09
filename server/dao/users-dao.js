@@ -1,8 +1,8 @@
 let connection = require("./connection-wrapper");
 
 async function addUser(user) {
-    let sql = 'INSERT INTO users (identification, name, surname, email, password, city, street) VALUES(?, ?, ?, ?, ?, ?, ?)';
-    let parameters = [user.identification, user.firstName, user.lastName, user.userName, user.password, user.city, user.street];
+    let sql = 'INSERT INTO users (identification, firstName, lastName, email, password, city, street) VALUES(?, ?, ?, ?, ?, ?, ?)';
+    let parameters = [user.identification, user.firstName, user.lastName, user.email, user.password, user.city, user.street];
     await connection.executeWithParameters(sql, parameters);
 }
 
@@ -53,13 +53,14 @@ async function updateUserAddress(user) {
 async function getAllUsers() {
     let sql = "SELECT * FROM users";
     let users = await connection.execute(sql);
-    // console.log(users);
+    console.log(users);
     return users;
 }
 
 async function login(user) {
+    // console.log(user);
     let sql = "SELECT * FROM users WHERE email =? AND password =?";
-    let parameters = [user.userName, user.password];
+    let parameters = [user.email, user.password];
     let usersLoginResult = await connection.executeWithParameters(sql, parameters);
     // console.log(usersLoginResult);
     return usersLoginResult;
@@ -91,13 +92,13 @@ let userToUpdate = {
 }
 
 let user = {
-    "identification": "1",
-    "firstName": "samwise",
-    "lastName": "gamgee",
-    "userName": "bobit@gmail.com",
+    "identification": "000000000",
+    "firstName": "Rick",
+    "lastName": "Sanchez",
+    "email": "yourMama@gmail.com",
     "password": "1234",
-    "city": "the shire",
-    "street": "sam's street"
+    "city": "asdf",
+    "street": "qwer"
 }
 
 
@@ -115,8 +116,10 @@ let user = {
 
 // changePassword(user);
 
-// login({userName: 'bubu',password: '1234'});
+// getAllUsers();
+
+// login({email: 'fry@gmail.com',password: '1234'});
 
 // login(user);
 
-// let user = {userName: 'adi', password: '1234'};
+// let user = {email: 'adi', password: '1234'};
