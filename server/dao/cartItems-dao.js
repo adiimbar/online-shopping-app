@@ -4,8 +4,13 @@ let connection = require("./connection-wrapper");
 //need to validate no double inserts
 async function addCartItem(cartItem) {
 
+    console.log("inside cart items dao, obj: " +cartItem);
     // calculate the total price (quantity * product price)
-    let products_price = cartItem.quantity * cartItem.price;
+    // let products_price = cartItem.quantity * cartItem.price;
+
+    //moke - might remove product price from cart items table
+    // or take the price from products table with join
+    let products_price = 123456;
 
     let sql = 'INSERT INTO cart_items (product_id, quantity, products_price, shopping_cart_id) VALUES(?, ?, ?, ?)';
     let parameters = [cartItem.product_id, cartItem.quantity, products_price, cartItem.shopping_cart_id];
@@ -16,7 +21,9 @@ async function addCartItem(cartItem) {
 async function updateCartItem(cartItem) {
 
     // calculate the total price (quantity * product price)
-    let products_price = cartItem.quantity * cartItem.price;
+    // let products_price = cartItem.quantity * cartItem.price;
+    let products_price = 123456;
+
 
     let sql = "UPDATE cart_items SET quantity = ?, products_price = ? WHERE (product_id=? AND shopping_cart_id=?)";
     let parameters = [cartItem.quantity, products_price, cartItem.product_id, cartItem.shopping_cart_id];
@@ -33,7 +40,7 @@ async function deleteItemFromCart(cartItem) {
 // need to change the passed variable to include only product_id and shopping_cart_id
 async function getCartItem(cartItem) {
     let sql = "SELECT * FROM cart_items WHERE (product_id=? AND shopping_cart_id=?)";
-    let parameters = [cartItem.productId, cartItem.cartId];
+    let parameters = [cartItem.product_id, cartItem.shopping_cart_id];
     let item = await connection.executeWithParameters(sql, parameters);
     // console.log(item);
     return item;
@@ -90,16 +97,16 @@ module.exports = {
 
 // getCartItem(cartItem);
 
-// let cartItem = {
-//     product_id: 3,
-//     quantity: 6,
-//     basePrice: 4,
-//     shopping_cart_id: 4
-// }
+let cartItem = {
+    product_id: 5,
+    quantity: 42,
+    products_price: 13,
+    shopping_cart_id: 8
+}
 
 // addCartItem(cartItem);
 
-// updateCartItem(cartItem);
+updateCartItem(cartItem);
 
 // getCartItem(cartItem);
 
@@ -107,5 +114,5 @@ module.exports = {
 
 // deleteItemFromCart(cartItem);
 
-let cartId = 8;
-getAllCartItems(cartId);
+// let cartId = 8;
+// getAllCartItems(cartId);

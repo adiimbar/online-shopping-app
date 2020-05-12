@@ -2,7 +2,19 @@ let cartItemsDao = require("../dao/cartItems-dao");
 
 async function addCartItem(cartItem) {
     // Validations
-    await cartItemsDao.addCartItem(cartItem);
+
+    let isItemInCart = await cartItemsDao.getCartItem(cartItem);
+    // console.log(isItemInCart);
+    // if the item is not in the cart it will be added - using addCartItem
+    // and if the item is already in the cart it will be updated
+    if (isItemInCart == null || isItemInCart.length == 0) {
+        await cartItemsDao.addCartItem(cartItem);
+    } else {
+        // updateCartItem(cartItem);
+        await cartItemsDao.updateCartItem(cartItem);
+    }
+
+    // await cartItemsDao.addCartItem(cartItem);
 }
 
 async function updateCartItem(cartItem) {

@@ -21,7 +21,7 @@ const middleware = require('../middleware/Joi-middlewere');
 // User to validate:
 async function userLoginValidation(user) {
     const errorDetails =  middleware(userSchemas.login, user);
-    // console.log(errorDetails);
+    console.log(errorDetails);
     if (errorDetails) {
         throw new Error("Invalid details");
     }
@@ -29,7 +29,7 @@ async function userLoginValidation(user) {
 
 async function userRegistrationValidation(user) {
     const errorDetails =  middleware(userSchemas.registration, user);
-    // console.log(errorDetails);
+    console.log(errorDetails);
     if (errorDetails) {
         throw new Error("Invalid details");
     }

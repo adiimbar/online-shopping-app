@@ -1,10 +1,24 @@
 let connection = require("./connection-wrapper");
+let ErrorType = require("./../errors/error-type");
+let ServerError = require("./../errors/server-error")
 
 async function addUser(user) {
     let sql = 'INSERT INTO users (identification, firstName, lastName, email, password, city, street) VALUES(?, ?, ?, ?, ?, ?, ?)';
     let parameters = [user.identification, user.firstName, user.lastName, user.email, user.password, user.city, user.street];
-    await connection.executeWithParameters(sql, parameters);
+    try {
+        await connection.executeWithParameters(sql, parameters);
+    }
+    catch (e) {
+        // the error will probably be - duplicate entry
+        throw new ServerError(ErrorType.GENERAL_ERROR, sql, e);
+    }
 }
+
+// async function isUserExistByName(name) {
+//     // A MOCK
+//     return false;
+// }
+
 
 // Only by admin
 async function updateUserType(user) {
@@ -46,7 +60,6 @@ async function updateUserAddress(user) {
     let sql = "UPDATE users SET city=?, street=? WHERE user_id=?"
     let parameters = [user.city, user.street, user.user_id];
     await connection.executeWithParameters(sql, parameters);
-
 }
 
 // only by admin
@@ -61,15 +74,19 @@ async function login(user) {
     // console.log(user);
     let sql = "SELECT * FROM users WHERE email =? AND password =?";
     let parameters = [user.email, user.password];
-    let usersLoginResult = await connection.executeWithParameters(sql, parameters);
+    // let usersLoginResult = await connection.executeWithParameters(sql, parameters);
+    try {
+        usersLoginResult = await connection.executeWithParameters(sql, parameters);
+    }
+    catch (e) {
+        // This is an example, for a situation where a TECHNICAL ERROR HAD OCCURED
+        // that error threw an exception - WHICH WE WANT TO WRAP with a ServerError
+        throw new ServerError(ErrorType.GENERAL_ERROR, JSON.stringify(user), e);
+    }
+
     // console.log(usersLoginResult);
     return usersLoginResult;
     // return usersLoginResult[0];
-
-
-    // if (usersLoginResult.length == 0) {
-    //     throw new Error("Unauthorized");
-    // }
 }
 
 
