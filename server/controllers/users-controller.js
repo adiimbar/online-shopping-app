@@ -8,6 +8,8 @@ const router = express.Router();
 router.post("/login", async (request, response) => {
 
     let user = request.body;
+    // console.log('user log in controller value:');
+    // console.log(user);
 
     try {
         let successfullLoginData = await usersLogic.login(user);
@@ -28,7 +30,8 @@ router.post("/login", async (request, response) => {
 // add user
 router.post("/", async (request, response) => {
 
-    let user = request.body;    
+    let user = request.body;
+    console.log('in the controller - add user: ' + user);
 
     try {
         await usersLogic.addUser(user);

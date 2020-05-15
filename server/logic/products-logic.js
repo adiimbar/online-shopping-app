@@ -1,14 +1,17 @@
 let productsDao = require("../dao/products-dao");
+const validation = require("../validation/validation");
+
 
 async function addProduct(product) {
-    // Validations
+    await validation.addProductValidation(product);
+
     await productsDao.addProduct(product);
 }
 
 // Only by admin
 async function updateProduct(product) {
-    // Validations
-    // await (userValidation(user))
+    await validation.updateProductValidation(product);
+
     await productsDao.updateProduct(product);
 }
 

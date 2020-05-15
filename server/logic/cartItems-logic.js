@@ -1,7 +1,9 @@
 let cartItemsDao = require("../dao/cartItems-dao");
+const validation = require("../validation/validation");
+
 
 async function addCartItem(cartItem) {
-    // Validations
+    await validation.addCartItemValidation(cartItem);
 
     let isItemInCart = await cartItemsDao.getCartItem(cartItem);
     // console.log(isItemInCart);
@@ -18,12 +20,15 @@ async function addCartItem(cartItem) {
 }
 
 async function updateCartItem(cartItem) {
-    // Validations
+    await validation.updateCartItemValidation(cartItem);
+
     await cartItemsDao.updateCartItem(cartItem);
 }
 
 // need to change the passed variable to include only product_id and shopping_cart_id
 async function deleteItemFromCart(cartItem) {
+    await validation.deleteItemFromCartValidation(cartItem);
+
     await cartItemsDao.deleteItemFromCart(cartItem);
 }
 

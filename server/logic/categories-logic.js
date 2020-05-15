@@ -1,4 +1,6 @@
 let categoriesDao = require("../dao/categories-dao");
+const validation = require("../validation/validation");
+
 
 async function getAllCategories() {
     // Validations

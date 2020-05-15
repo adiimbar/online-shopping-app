@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+const identificationNumberLength = 9;
 
 const userSchemas = {
 
@@ -15,8 +16,12 @@ const userSchemas = {
       .required(), // .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/),
   },
   registration: {
-    identification: Joi.string()
+    identificationNumber: Joi.string()
+      // Joi.number()
       // need to be a number
+      // .min(identificationNumberLength)
+      // .max(identificationNumberLength)
+      .length(identificationNumberLength)
       .required(),
 
     email: Joi.string()

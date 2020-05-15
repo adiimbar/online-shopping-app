@@ -1,13 +1,9 @@
-// const User = require("../models/user");
-// const Order = require("../models/order");
-// const Product = require("../models/product");
-// const CartItem = require("../models/cartItem");
-// const Cart = require("../models/cart");
-// const Category = require("../models/category");
 let ErrorType = require("../errors/error-type");
 let ServerError = require("../errors/server-error");
 
 const userSchemas = require('../models/userSchema');
+const productSchema = require('../models/productSchema');
+const cartItemSchema = require('../models/cartItemSchema');
 const middleware = require('../middleware/Joi-middlewere');
 
 
@@ -18,12 +14,12 @@ const middleware = require('../middleware/Joi-middlewere');
 //     };
 // };
 
-// User to validate:
+// User validations:
 async function userLoginValidation(user) {
     const errorDetails =  middleware(userSchemas.login, user);
-    console.log(errorDetails);
+    // console.log(errorDetails);
     if (errorDetails) {
-        throw new Error("Invalid details");
+        throw new Error("Invalid details - failed validation");
     }
 }
 
@@ -31,7 +27,49 @@ async function userRegistrationValidation(user) {
     const errorDetails =  middleware(userSchemas.registration, user);
     console.log(errorDetails);
     if (errorDetails) {
-        throw new Error("Invalid details");
+        throw new Error("Invalid details - failed validation");
+    }
+}
+
+// Products validations
+async function addProductValidation(product) {
+    const errorDetails =  middleware(productSchema.addProduct, product);
+    console.log(errorDetails);
+    if (errorDetails) {
+        throw new Error("Invalid details - failed validation");
+    }
+}
+
+async function updateProductValidation(product) {
+    const errorDetails =  middleware(productSchema.updateProduct, product);
+    console.log(errorDetails);
+    if (errorDetails) {
+        throw new Error("Invalid details - failed validation");
+    }
+}
+
+// CartItems validations
+async function addCartItemValidation(cartItem) {
+    const errorDetails =  middleware(cartItemSchema.addCartItem, cartItem);
+    console.log(errorDetails);
+    if (errorDetails) {
+        throw new Error("Invalid details - failed validation");
+    }
+}
+
+async function updateCartItemValidation(cartItem) {
+    const errorDetails =  middleware(cartItemSchema.updateCartItem, cartItem);
+    console.log(errorDetails);
+    if (errorDetails) {
+        throw new Error("Invalid details - failed validation");
+    }
+}
+
+async function deleteItemFromCartValidation(cartItem) {
+    const errorDetails =  middleware(cartItemSchema.deleteItemFromCart, cartItem);
+    console.log(errorDetails);
+    if (errorDetails) {
+        throw new Error("Invalid details - failed validation");
     }
 }
 
@@ -104,13 +142,13 @@ async function userRegistrationValidation(user) {
 module.exports = {
     // isValid,
     userLoginValidation,
-    userRegistrationValidation
+    userRegistrationValidation,
+    addProductValidation,
+    updateProductValidation,
+    addCartItemValidation,
+    updateCartItemValidation,
+    deleteItemFromCartValidation
     // isIntValid,
-    // cartValidation,
-    // orderValidation,
-    // productValidtation,
-    // cartValidation,
-    // cartItemtValidation,
     // validateId,
     // validateCategory
 };

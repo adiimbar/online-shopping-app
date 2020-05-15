@@ -3,7 +3,8 @@ let connection = require("./connection-wrapper");
 // Only by admin
 async function addProduct(product) {
     let sql = 'INSERT INTO products (product_name, category_id, price, image_path) VALUES(?, ?, ?, ?)';
-    let parameters = [product.product_name, product.category_id, product.price, product.image_path];
+    let parameters = [product.productName, product.category, product.productPrice, product.productImage];
+    // let parameters = [product.product_name, product.category_id, product.price, product.image_path];
     await connection.executeWithParameters(sql, parameters);
 }
 
@@ -11,6 +12,7 @@ async function addProduct(product) {
 async function updateProduct(product) {
     let sql = "UPDATE products SET product_name = ?, price = ?, image_path = ? WHERE product_id=? ";
     let parameters = [product.product_name, product.price, product.image_path, product.product_id];
+    // let parameters = [product.product_name, product.price, product.image_path, product.product_id];
     await connection.executeWithParameters(sql, parameters);
 }
 

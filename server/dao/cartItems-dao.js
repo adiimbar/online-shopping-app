@@ -22,8 +22,10 @@ async function updateCartItem(cartItem) {
 
     // calculate the total price (quantity * product price)
     // let products_price = cartItem.quantity * cartItem.price;
-    let products_price = 123456;
 
+     //moke - might remove product price from cart items table
+    // or take the price from products table with join
+    let products_price = 123456;
 
     let sql = "UPDATE cart_items SET quantity = ?, products_price = ? WHERE (product_id=? AND shopping_cart_id=?)";
     let parameters = [cartItem.quantity, products_price, cartItem.product_id, cartItem.shopping_cart_id];

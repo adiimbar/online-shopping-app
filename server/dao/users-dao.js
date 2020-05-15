@@ -4,7 +4,7 @@ let ServerError = require("./../errors/server-error")
 
 async function addUser(user) {
     let sql = 'INSERT INTO users (identification, firstName, lastName, email, password, city, street) VALUES(?, ?, ?, ?, ?, ?, ?)';
-    let parameters = [user.identification, user.firstName, user.lastName, user.email, user.password, user.city, user.street];
+    let parameters = [user.identificationNumber, user.firstName, user.lastName, user.email, user.password, user.city, user.street];
     try {
         await connection.executeWithParameters(sql, parameters);
     }
@@ -84,7 +84,6 @@ async function login(user) {
         throw new ServerError(ErrorType.GENERAL_ERROR, JSON.stringify(user), e);
     }
 
-    // console.log(usersLoginResult);
     return usersLoginResult;
     // return usersLoginResult[0];
 }
