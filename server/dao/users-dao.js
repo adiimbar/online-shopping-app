@@ -72,7 +72,13 @@ async function getAllUsers() {
 
 async function login(user) {
     // console.log(user);
-    let sql = "SELECT * FROM users WHERE email =? AND password =?";
+    // let sql = "SELECT * FROM users WHERE email =? AND password =?";
+
+    let sql = 'SELECT u.user_id, u.identification, u.firstName, u.lastName, u.email, u.password, u.type, u.city, u.street, s.cart_id '+
+        'FROM users u LEFT JOIN shopping_carts s '+
+        'ON u.user_id = s.user_id '+
+        'WHERE u.email =? AND u.password =?';
+
     let parameters = [user.email, user.password];
     // let usersLoginResult = await connection.executeWithParameters(sql, parameters);
     try {

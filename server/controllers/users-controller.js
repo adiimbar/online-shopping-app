@@ -59,22 +59,38 @@ router.put("/updateUserType", async (request, response) => {
     }
 });
 
-// get all users
-router.get("/", async (request, response) => {
+// // get all users
+// router.get("/", async (request, response) => {
+//     try {
+//         let users = await usersLogic.getAllUsers();
+//         response.json(users);
+        
+//     } catch (error) {
+//         response.status(401).send("No users in database");
+//     }
+
+// });
+
+router.get("/me", async (request, response)=>{
+    
+    let authorizationString = request.headers["authorization"];
+
     try {
-        let users = await usersLogic.getAllUsers();
-        response.json(users);
+        let user = await usersLogic.getMe(authorizationString);
+        // let user = usersLogic.getMe(authorizationString);
+        response.json(user);
         
     } catch (error) {
-        response.status(401).send("No users in database");
+        console.log(error);
+        response.status(401).send("No user in database");
     }
 
-});
+})
 
 // getUser
 // router.get("/me", async (request, response) => {
 router.get("/:id", async (request, response) => {
-        try {
+    try {
         let user = await usersLogic.getUser(request.params.id);
         response.json(user);
         

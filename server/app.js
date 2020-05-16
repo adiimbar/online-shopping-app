@@ -27,7 +27,7 @@ const categoriesController = require("./controllers/categories-controller");
 // const imagesController = require("./controllers/images-controller");
 
 
-if (!fs.existsSync("./uploads")) { // Must create "/uploads" folder if not exist.
+if (!fs.existsSync("./uploads")) { // create "/uploads" folder if not exist.
     fs.mkdirSync("./uploads");
 }
 
@@ -36,8 +36,6 @@ server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cors());
-
-
 server.use(fileUpload());
 server.use(express.json());
 let nextID = 1;
@@ -53,7 +51,6 @@ server.use("/carts", cartsController);
 server.use("/cartItems", cartItemsController);
 server.use("/categories", categoriesController);
 // server.use("/files", imagesController);
-
 
 
 // get image

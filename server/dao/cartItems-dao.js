@@ -108,7 +108,7 @@ let cartItem = {
 
 // addCartItem(cartItem);
 
-updateCartItem(cartItem);
+// updateCartItem(cartItem);
 
 // getCartItem(cartItem);
 

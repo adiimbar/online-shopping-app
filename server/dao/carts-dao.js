@@ -3,16 +3,18 @@ let connection = require("./connection-wrapper");
 // need to move CURRENT_TIMESTAMP from sql to parameters
 async function addCart(userId) {
     let sql = 'INSERT INTO shopping_carts (user_id, cart_creation_date) VALUES(?, CURRENT_TIMESTAMP)';
-    let parameters = [userId.user_id];
+    let parameters = [userId];
     await connection.executeWithParameters(sql, parameters);
 }
 
 async function getCartByUserId(userId) {
 
-    let sql = 'SELECT u.user_id, s.cart_id, s.cart_creation_date '+
-                'FROM users u RIGHT JOIN shopping_carts s '+
-                'ON u.user_id = s.user_id '+
-                'WHERE u.user_id = ?';
+    let sql = "SELECT * FROM shopping_carts WHERE user_id = ?";
+
+    // let sql = 'SELECT u.user_id, s.cart_id, s.cart_creation_date '+
+    //             'FROM users u RIGHT JOIN shopping_carts s '+
+    //             'ON u.user_id = s.user_id '+
+    //             'WHERE u.user_id = ?';
     
     let parameters = [userId];
     let userCart = await connection.executeWithParameters(sql, parameters);
