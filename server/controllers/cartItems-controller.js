@@ -9,9 +9,10 @@ router.post("/", async (request, response) => {
 
     // might need to change the object passed
     let cartItemObject = request.body;
+    let authorizationString = request.headers['authorization'];
 
     try {
-        let cartItem = await cartItemsLogic.addCartItem(cartItemObject);
+        let cartItem = await cartItemsLogic.addCartItem(cartItemObject, authorizationString);
         response.json(cartItem);
 
     } catch (error) {
@@ -67,12 +68,12 @@ router.delete("/:cart_and_product", async (request, response) => {
     }
 });
 
-router.get("/allCartItems/:id", async (request, response) => {
+router.get("/allCartItems", async (request, response) => {
 
-    let cartId = request.params.id;
+    let authorizationString = request.headers['authorization'];
 
     try {
-        let cartItems = await cartItemsLogic.getAllCartItems(cartId);
+        let cartItems = await cartItemsLogic.getAllCartItems(authorizationString);
         response.json(cartItems);    
         
     } catch (error) {

@@ -1,8 +1,16 @@
 let cartItemsDao = require("../dao/cartItems-dao");
+let usersLogic = require("./users-logic");
 const validation = require("../validation/validation");
 
 
-async function addCartItem(cartItem) {
+async function addCartItem(cartItem, authorizationString) {
+    let userCacheData = await usersLogic.getMe(authorizationString);
+
+    let cartId = userCacheData.userCart;
+    cartItem.shopping_cart_id = cartId;
+    console.log('cart item obj in cartItem logic');
+    console.log(cartItem);
+
     await validation.addCartItemValidation(cartItem);
 
     let isItemInCart = await cartItemsDao.getCartItem(cartItem);
@@ -53,8 +61,12 @@ async function getCartItem(productIdAndCartId) {
     return cartItem;
 }
 
-async function getAllCartItems(cartID) {
-    let allCartItems = await cartItemsDao.getAllCartItems(cartID);
+async function getAllCartItems(authorizationString) {
+    // getting user data from cache by using user token
+    let userCacheData = await usersLogic.getMe(authorizationString);
+
+    let cartId = userCacheData.userCart;
+    let allCartItems = await cartItemsDao.getAllCartItems(cartId);
     return allCartItems;
 }
 
