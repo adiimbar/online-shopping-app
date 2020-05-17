@@ -43,7 +43,7 @@ router.delete("/emptyCartItems/:id", async (request, response) => {
 
     try {
         await cartItemsLogic.emptyCartItems(cartId);
-        response.status(200).send("shopping cart is empty now");
+        response.status(200).json({data: 'item deleted from cart'});
 
     } catch (error) {
         console.log(error);
@@ -60,7 +60,7 @@ router.delete("/:productId", async (request, response) => {
 
     try {
         await cartItemsLogic.deleteItemFromCart(productId, authorizationString);
-        response.status(200).send("item deleted from cart");
+        response.status(200).json({data: 'item deleted from cart'});
 
     } catch (error) {
         console.log(error);
