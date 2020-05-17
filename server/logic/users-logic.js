@@ -90,7 +90,7 @@ async function login(user) {
     }
 
     let userData = {
-        // userId: userId,
+        userId: userId,
         userType: userType,
         email: email,
         userCart: cartId,

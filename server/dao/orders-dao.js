@@ -18,7 +18,7 @@ async function getAllUserOrders(userId) {
 // dose not include details on items - only on total price
 async function addOrder(order) {
   let sql = 'INSERT INTO orders (user_id, cart_id, total_price, shipping_city, shipping_street, shipping_date, order_timestamp, last_4_credit_digits) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP,?)';
-  let parameters = [order.userId, order.cartId, order.totalPrice, order.shipping_City, order.shipping_Street, order.deliveryDate, order.last_4_credit_digits];
+  let parameters = [order.userId, order.cartId, order.totalPrice, order.city, order.street, order.shippingDate, order.creditCard];
   await connection.executeWithParameters(sql, parameters);
 }
 

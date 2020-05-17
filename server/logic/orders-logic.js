@@ -1,4 +1,6 @@
 let ordersDao = require("../dao/orders-dao");
+let usersLogic = require("./users-logic");
+let cartItemsLogic = require("../logic/cartItems-logic");
 const validation = require("../validation/validation");
 
 
@@ -16,8 +18,30 @@ async function getAllUserOrders(userId) {
     return userOrders;
 }
 
-async function addOrder(order) {
+async function addOrder(order, authorizationString) {
+
+    console.log('inside orders logic');
+    console.log(order);
+
+    let userCacheData = await usersLogic.getMe(authorizationString);
+
+    console.log(userCacheData);
+
+    let totalPrice = await cartItemsLogic.getCartItemsTotalPrice(userCacheData.cartId);
+    // let cartItems = getAllCartItems(authorizationString);
+
+
+    // extract the last 4 digits of credit card
+    order.creditCard = order.creditCard.slice(-4);
+    order.cartId = userCacheData.userCart;
+    order.userId = userCacheData.userId;
+    order.totalPrice = totalPrice;
+    
+    console.log('order obj in orders logic');
+    console.log(order);
+
     // Validations
+
     await ordersDao.addOrder(order);
 }
 

@@ -21,6 +21,12 @@ async function getAllProducts() {
     return products;
 }
 
+async function getAllProductsByCategoryId(categoryId) {
+    let products = await productsDao.getAllProductsByCategoryId(categoryId);
+    // console.log(products);
+    return products;
+}
+
 async function getProduct(id) {
     let product = await productsDao.getProduct(id);
     // console.log(product);
@@ -36,6 +42,7 @@ module.exports = {
     addProduct,
     updateProduct,
     getAllProducts,
+    getAllProductsByCategoryId,
     getProduct
     // deleteProduct
 };

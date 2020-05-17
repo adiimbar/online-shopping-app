@@ -16,19 +16,25 @@ async function updateProduct(product) {
     await connection.executeWithParameters(sql, parameters);
 }
 
-// only by admin
 async function getAllProducts() {
     let sql = "SELECT * FROM products";
     let products = await connection.execute(sql);
     return products;
 }
 
+async function getAllProductsByCategoryId(categoryId) {
+    let sql = "SELECT * FROM products WHERE category_id = ?";
+    let parameters = [categoryId];
+    let products = await connection.executeWithParameters(sql, parameters);
+    return products;
+}
+
 async function getProduct(id) {
     let sql = "SELECT * FROM products WHERE product_id=?";
     let parameters = [id];
-    let user = await connection.executeWithParameters(sql, parameters);
-    // console.log(user);
-    return user;
+    let products = await connection.executeWithParameters(sql, parameters);
+    // console.log(products);
+    return products;
 }
 
 
@@ -44,6 +50,7 @@ module.exports = {
     addProduct,
     updateProduct,
     getAllProducts,
+    getAllProductsByCategoryId,
     getProduct
     
     // deleteProduct,

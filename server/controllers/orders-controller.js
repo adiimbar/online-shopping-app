@@ -35,9 +35,10 @@ router.get("/:id", async (request, response) => {
 router.post("/", async (request, response) => {
 
     let order = request.body;
+    let authorizationString = request.headers['authorization'];
 
     try {
-        await ordersLogic.addOrder(order);
+        await ordersLogic.addOrder(order, authorizationString);
         response.status(200).send();
 
     } catch (error) {

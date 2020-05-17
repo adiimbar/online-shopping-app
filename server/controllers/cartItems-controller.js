@@ -7,7 +7,6 @@ const router = express.Router();
 // put http://localhost:3000/cartItems/
 router.post("/", async (request, response) => {
 
-    // might need to change the object passed
     let cartItemObject = request.body;
     let authorizationString = request.headers['authorization'];
 

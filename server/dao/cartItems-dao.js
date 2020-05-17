@@ -4,7 +4,7 @@ let connection = require("./connection-wrapper");
 //need to validate no double inserts
 async function addCartItem(cartItem) {
 
-    console.log("inside cart items dao, obj: " +cartItem);
+    // console.log("inside cart items dao, obj: " +cartItem);
     // calculate the total price (quantity * product price)
     // let products_price = cartItem.quantity * cartItem.price;
 
@@ -62,6 +62,21 @@ async function getAllCartItems(cartId) {
     return cartItems;
 }
 
+async function getSumPerItemAndQuantityFromCart(cartId) {
+    // let sql = 'SELECT p.price, c.quantity, (p.price*c.quantity) AS sum '+
+    let sql = 'SELECT (p.price*c.quantity) AS sum '+
+                'FROM cart_items c LEFT JOIN shopping_carts s '+
+                'ON c.shopping_cart_id = s.cart_id '+
+                'RIGHT JOIN products p '+
+                'ON p.product_id = c.product_id '+
+                'WHERE c.shopping_cart_id = ?';
+    
+    let parameters = [cartId];
+    let cartItems = await connection.executeWithParameters(sql, parameters);
+    // console.log(cartItems);
+    return cartItems;
+}
+
 
         // the original get all cart items function
 // async function getAllCartItems(cartId) {
@@ -89,7 +104,8 @@ module.exports = {
     deleteItemFromCart,
     getCartItem,
     getAllCartItems,
-    emptyCartItems
+    emptyCartItems,
+    getSumPerItemAndQuantityFromCart
 };
 
 
@@ -118,3 +134,5 @@ let cartItem = {
 
 // let cartId = 8;
 // getAllCartItems(cartId);
+
+// getTotalPriceFromCart(12);

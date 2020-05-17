@@ -76,8 +76,20 @@ router.get("/me", async (request, response)=>{
     let authorizationString = request.headers["authorization"];
 
     try {
-        let user = await usersLogic.getMe(authorizationString);
-        // let user = usersLogic.getMe(authorizationString);
+        let userData = await usersLogic.getMe(authorizationString);
+
+        // passing only these parameters to the user
+        let user = {
+            email: userData.email,
+            city: userData.city,
+            street: userData.street,
+            firstName: userData.firstName,
+            lastName: userData.lastName    
+        }
+
+        // console.log('getUser from cache response:');
+        // console.log(user);
+
         response.json(user);
         
     } catch (error) {

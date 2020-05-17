@@ -8,8 +8,8 @@ async function addCartItem(cartItem, authorizationString) {
 
     let cartId = userCacheData.userCart;
     cartItem.shopping_cart_id = cartId;
-    console.log('cart item obj in cartItem logic');
-    console.log(cartItem);
+    // console.log('cart item obj in cartItem logic');
+    // console.log(cartItem);
 
     await validation.addCartItemValidation(cartItem);
 
@@ -70,12 +70,31 @@ async function getAllCartItems(authorizationString) {
     return allCartItems;
 }
 
+// internal use - to be called by orders logic
+async function getCartItemsTotalPrice(cartId) {
+    let sumedItems = await cartItemsDao.getSumPerItemAndQuantityFromCart(cartId);
+    // console.log(sumedItems);
+
+    let totalPrice = 0;
+
+    for (let value of Object.values(sumedItems)) {
+        totalPrice = totalPrice + Number(value.sum);
+    }
+    
+      console.log(totalPrice);
+
+    return totalPrice;
+}
+
+
 module.exports = {
     addCartItem,
     updateCartItem,
     deleteItemFromCart,
     emptyCartItems,
     getCartItem,
-    getAllCartItems
+    getAllCartItems,
+    getCartItemsTotalPrice
 };
 
+// getCartItemsTotalPrice(12)
