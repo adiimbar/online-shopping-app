@@ -53,12 +53,13 @@ router.delete("/emptyCartItems/:id", async (request, response) => {
 
 // delete cart item
 // POST http://localhost:3000/cartItems/updateCartItem
-router.delete("/:cart_and_product", async (request, response) => {
+router.delete("/:productId", async (request, response) => {
 
-    let queryRequest = url.parse(request.url,true).query;
+    let productId = request.params.productId;
+    let authorizationString = request.headers['authorization'];
 
     try {
-        await cartItemsLogic.deleteItemFromCart(queryRequest);
+        await cartItemsLogic.deleteItemFromCart(productId, authorizationString);
         response.status(200).send("item deleted from cart");
 
     } catch (error) {

@@ -33,8 +33,15 @@ async function updateCartItem(cartItem) {
     await cartItemsDao.updateCartItem(cartItem);
 }
 
-// need to change the passed variable to include only product_id and shopping_cart_id
-async function deleteItemFromCart(cartItem) {
+async function deleteItemFromCart(productId, authorizationString) {
+    let userCacheData = await usersLogic.getMe(authorizationString);
+
+    let cartId = userCacheData.userCart;
+    let cartItem = {
+        productId: productId,
+        cartId: cartId
+    }
+
     await validation.deleteItemFromCartValidation(cartItem);
 
     await cartItemsDao.deleteItemFromCart(cartItem);

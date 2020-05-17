@@ -17,16 +17,16 @@ const middleware = require('../middleware/Joi-middlewere');
 // User validations:
 async function userLoginValidation(user) {
     const errorDetails =  middleware(userSchemas.login, user);
-    // console.log(errorDetails);
     if (errorDetails) {
+        console.log(errorDetails);
         throw new Error("Invalid details - failed validation");
     }
 }
 
 async function userRegistrationValidation(user) {
     const errorDetails =  middleware(userSchemas.registration, user);
-    console.log(errorDetails);
     if (errorDetails) {
+        console.log(errorDetails);
         throw new Error("Invalid details - failed validation");
     }
 }
@@ -34,16 +34,16 @@ async function userRegistrationValidation(user) {
 // Products validations
 async function addProductValidation(product) {
     const errorDetails =  middleware(productSchema.addProduct, product);
-    console.log(errorDetails);
     if (errorDetails) {
+        console.log(errorDetails);
         throw new Error("Invalid details - failed validation");
     }
 }
 
 async function updateProductValidation(product) {
     const errorDetails =  middleware(productSchema.updateProduct, product);
-    console.log(errorDetails);
     if (errorDetails) {
+        console.log(errorDetails);
         throw new Error("Invalid details - failed validation");
     }
 }
@@ -51,24 +51,24 @@ async function updateProductValidation(product) {
 // CartItems validations
 async function addCartItemValidation(cartItem) {
     const errorDetails =  middleware(cartItemSchema.addCartItem, cartItem);
-    console.log(errorDetails);
     if (errorDetails) {
+        console.log(errorDetails);
         throw new Error("Invalid details - failed validation");
     }
 }
 
 async function updateCartItemValidation(cartItem) {
     const errorDetails =  middleware(cartItemSchema.updateCartItem, cartItem);
-    console.log(errorDetails);
     if (errorDetails) {
+        console.log(errorDetails);
         throw new Error("Invalid details - failed validation");
     }
 }
 
 async function deleteItemFromCartValidation(cartItem) {
     const errorDetails =  middleware(cartItemSchema.deleteItemFromCart, cartItem);
-    console.log(errorDetails);
     if (errorDetails) {
+        console.log(errorDetails);
         throw new Error("Invalid details - failed validation");
     }
 }

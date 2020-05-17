@@ -1,38 +1,19 @@
 let connection = require("./connection-wrapper");
 
-// probability need to change the sql call (might need to use join)
-//need to validate no double inserts
 async function addCartItem(cartItem) {
 
-    // console.log("inside cart items dao, obj: " +cartItem);
-    // calculate the total price (quantity * product price)
-    // let products_price = cartItem.quantity * cartItem.price;
-
-    //moke - might remove product price from cart items table
-    // or take the price from products table with join
-    let products_price = 123456;
-
-    let sql = 'INSERT INTO cart_items (product_id, quantity, products_price, shopping_cart_id) VALUES(?, ?, ?, ?)';
-    let parameters = [cartItem.product_id, cartItem.quantity, products_price, cartItem.shopping_cart_id];
+    let sql = 'INSERT INTO cart_items (product_id, quantity, shopping_cart_id) VALUES(?, ?, ?)';
+    let parameters = [cartItem.product_id, cartItem.quantity, cartItem.shopping_cart_id];
     await connection.executeWithParameters(sql, parameters);
 }
 
-// price might need to be updated due to admin price update
 async function updateCartItem(cartItem) {
 
-    // calculate the total price (quantity * product price)
-    // let products_price = cartItem.quantity * cartItem.price;
-
-     //moke - might remove product price from cart items table
-    // or take the price from products table with join
-    let products_price = 123456;
-
-    let sql = "UPDATE cart_items SET quantity = ?, products_price = ? WHERE (product_id=? AND shopping_cart_id=?)";
-    let parameters = [cartItem.quantity, products_price, cartItem.product_id, cartItem.shopping_cart_id];
+    let sql = "UPDATE cart_items SET quantity = ? WHERE (product_id=? AND shopping_cart_id=?)";
+    let parameters = [cartItem.quantity, cartItem.product_id, cartItem.shopping_cart_id];
     await connection.executeWithParameters(sql, parameters);
 }
 
-// need to change the passed variable to include only product_id and shopping_cart_id
 async function deleteItemFromCart(cartItem) {
     let sql = "DELETE FROM cart_items WHERE (product_id=? AND shopping_cart_id=?)";
     let parameters = [cartItem.productId, cartItem.cartId];
