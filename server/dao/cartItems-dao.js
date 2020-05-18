@@ -54,7 +54,7 @@ async function getSumPerItemAndQuantityFromCart(cartId) {
     
     let parameters = [cartId];
     let cartItems = await connection.executeWithParameters(sql, parameters);
-    // console.log(cartItems);
+    // console.log(cartItems[0].sum);
     return cartItems;
 }
 
@@ -89,6 +89,9 @@ module.exports = {
     getSumPerItemAndQuantityFromCart
 };
 
+
+
+// getSumPerItemAndQuantityFromCart(8);
 
 
 // let cartItem =  { productID: "3", cartID: "4" };

@@ -20,14 +20,14 @@ async function getAllUserOrders(userId) {
 
 async function addOrder(order, authorizationString) {
 
-    console.log('inside orders logic');
-    console.log(order);
+    // console.log('inside orders logic');
+    // console.log(order);
 
     let userCacheData = await usersLogic.getMe(authorizationString);
 
-    console.log(userCacheData);
+    // console.log(userCacheData);
 
-    let totalPrice = await cartItemsLogic.getCartItemsTotalPrice(userCacheData.cartId);
+    let totalPrice = await cartItemsLogic.getCartItemsTotalPrice(userCacheData.userCart);
     // let cartItems = getAllCartItems(authorizationString);
 
 
@@ -37,8 +37,8 @@ async function addOrder(order, authorizationString) {
     order.userId = userCacheData.userId;
     order.totalPrice = totalPrice;
     
-    console.log('order obj in orders logic');
-    console.log(order);
+    // console.log('order obj in orders logic');
+    // console.log(order);
 
     // Validations
 

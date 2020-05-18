@@ -91,10 +91,12 @@ async function getCartItemsTotalPrice(cartId) {
     let totalPrice = 0;
 
     for (let value of Object.values(sumedItems)) {
+        // console.log(value);
         totalPrice = totalPrice + Number(value.sum);
+        // console.log(totalPrice);
     }
     
-      console.log(totalPrice);
+    //   console.log(totalPrice);
 
     return totalPrice;
 }
@@ -111,3 +113,5 @@ module.exports = {
 };
 
 // getCartItemsTotalPrice(12)
+
+// getCartItemsTotalPrice(8);
