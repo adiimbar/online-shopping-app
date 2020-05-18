@@ -30,6 +30,10 @@ const cartItemSchema = {
   
         cartId: Joi.number()
         .required(),
+    },
+    emptyCart: {
+        cartId: Joi.number()
+        .required(),
     }
 
 

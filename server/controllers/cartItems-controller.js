@@ -37,12 +37,12 @@ router.put("/", async (request, response) => {
 });
 
 // empty cart items
-router.delete("/emptyCartItems/:id", async (request, response) => {
+router.delete("/emptyCartItems", async (request, response) => {
 
-    let cartId = request.params.id;
+    let authorizationString = request.headers['authorization'];
 
     try {
-        await cartItemsLogic.emptyCartItems(cartId);
+        await cartItemsLogic.emptyCartItems(authorizationString);
         response.status(200).json({data: 'item deleted from cart'});
 
     } catch (error) {

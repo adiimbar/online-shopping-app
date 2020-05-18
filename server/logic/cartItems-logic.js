@@ -47,7 +47,13 @@ async function deleteItemFromCart(productId, authorizationString) {
     await cartItemsDao.deleteItemFromCart(cartItem);
 }
 
-async function emptyCartItems(cartId) {
+async function emptyCartItems(authorizationString) {
+    let userCacheData = await usersLogic.getMe(authorizationString);
+
+    let cartId = userCacheData.userCart;
+
+    await validation.emptyCartValidation(cartId);
+   
     await cartItemsDao.emptyCartItems(cartId);
 }
 

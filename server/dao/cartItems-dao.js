@@ -70,11 +70,11 @@ async function getSumPerItemAndQuantityFromCart(cartId) {
 //     let cartItems = await connection.executeWithParameters(sql, parameters);
 //     // console.log(cartItems);
 //     return cartItems;
-// }
+// }cartId
 
-async function emptyCartItems(shopping_cart_id) {
+async function emptyCartItems(cartId) {
     let sql = "DELETE FROM cart_items WHERE shopping_cart_id=?";
-    let parameters = [shopping_cart_id];
+    let parameters = [cartId];
     await connection.executeWithParameters(sql, parameters);    
 }
 

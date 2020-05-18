@@ -28,7 +28,13 @@ const productSchema = {
   
         productImage: Joi.string()
         .required()
+    },
+    getProductByName: {
+        productName: Joi.string()
+        .regex(/^[a-zA-Z]{1,20}$/)
+        .required()
     }
+
 
 
 };

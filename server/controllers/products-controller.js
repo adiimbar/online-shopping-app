@@ -59,10 +59,12 @@ router.get("/:id", async (request, response) => {
 
 });
 
-router.get("/getProduct/:id", async (request, response) => {
+router.get("/getProduct/:name", async (request, response) => {
+
+    let productName = request.params.name;
+
     try {
-        let product = await productsLogic.getProduct(request.params.id);
-            console.log(product);
+        let product = await productsLogic.getProductByName(productName);
             response.json(product);
 
     } catch (error) {

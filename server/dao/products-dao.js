@@ -29,9 +29,9 @@ async function getAllProductsByCategoryId(categoryId) {
     return products;
 }
 
-async function getProduct(id) {
-    let sql = "SELECT * FROM products WHERE product_id=?";
-    let parameters = [id];
+async function getProductByName(productName) {
+    let sql = "SELECT * FROM products WHERE product_name = ?";
+    let parameters = [productName];
     let products = await connection.executeWithParameters(sql, parameters);
     // console.log(products);
     return products;
@@ -51,7 +51,7 @@ module.exports = {
     updateProduct,
     getAllProducts,
     getAllProductsByCategoryId,
-    getProduct
+    getProductByName
     
     // deleteProduct,
 };

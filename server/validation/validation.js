@@ -48,6 +48,14 @@ async function updateProductValidation(product) {
     }
 }
 
+async function getProductByNameValidation(productName) {
+    const errorDetails =  middleware(productSchema.getProductByName, productName);
+    if (errorDetails) {
+        console.log(errorDetails);
+        throw new Error("Invalid details - failed validation");
+    }
+}
+
 // CartItems validations
 async function addCartItemValidation(cartItem) {
     const errorDetails =  middleware(cartItemSchema.addCartItem, cartItem);
@@ -72,6 +80,18 @@ async function deleteItemFromCartValidation(cartItem) {
         throw new Error("Invalid details - failed validation");
     }
 }
+
+async function emptyCartValidation(cartId) {
+    let cartItem = {
+        cartId: cartId
+    }
+    const errorDetails =  middleware(cartItemSchema.emptyCart, cartItem);
+    if (errorDetails) {
+        console.log(errorDetails);
+        throw new Error("Invalid details - failed validation");
+    }
+}
+
 
 
 // // Is int valid: works
@@ -147,7 +167,9 @@ module.exports = {
     updateProductValidation,
     addCartItemValidation,
     updateCartItemValidation,
-    deleteItemFromCartValidation
+    deleteItemFromCartValidation,
+    emptyCartValidation,
+    getProductByNameValidation
     // isIntValid,
     // validateId,
     // validateCategory

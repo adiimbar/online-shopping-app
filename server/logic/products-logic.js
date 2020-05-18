@@ -27,8 +27,15 @@ async function getAllProductsByCategoryId(categoryId) {
     return products;
 }
 
-async function getProduct(id) {
-    let product = await productsDao.getProduct(id);
+async function getProductByName(productName) {
+
+    let obj = {
+        productName: productName
+    }
+
+    await validation.getProductByNameValidation(obj);
+    
+    let product = await productsDao.getProductByName(productName);
     // console.log(product);
     return product;
 }
@@ -43,7 +50,7 @@ module.exports = {
     updateProduct,
     getAllProducts,
     getAllProductsByCategoryId,
-    getProduct
+    getProductByName
     // deleteProduct
 };
 
