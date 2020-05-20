@@ -21,14 +21,14 @@ router.post("/", async (request, response) => {
 });
 
 // update cart item
-// POST http://localhost:3000/cartItems/
 router.put("/", async (request, response) => {
 
     let cartItem = request.body;
+    let authorizationString = request.headers['authorization'];
 
     try {
-        await cartItemsLogic.updateCartItem(cartItem);
-        response.status(200).send("secessus! product updated");
+        await cartItemsLogic.updateCartItem(cartItem, authorizationString);
+        response.status(200).json({data: 'secessus! product updated'});
 
     } catch (error) {
         console.log(error);

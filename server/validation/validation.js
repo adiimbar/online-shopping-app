@@ -56,7 +56,6 @@ async function getProductByNameValidation(productName) {
     }
 }
 
-// CartItems validations
 async function addCartItemValidation(cartItem) {
     const errorDetails =  middleware(cartItemSchema.addCartItem, cartItem);
     if (errorDetails) {

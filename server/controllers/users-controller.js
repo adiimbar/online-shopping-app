@@ -31,7 +31,7 @@ router.post("/login", async (request, response) => {
 router.post("/", async (request, response) => {
 
     let user = request.body;
-    console.log('in the controller - add user: ' + user);
+    // console.log('in the controller - add user: ' + user);
 
     try {
         await usersLogic.addUser(user);
@@ -75,6 +75,7 @@ router.get("/me", async (request, response)=>{
     
     let authorizationString = request.headers["authorization"];
 
+
     try {
         let userData = await usersLogic.getMe(authorizationString);
 
@@ -86,9 +87,6 @@ router.get("/me", async (request, response)=>{
             firstName: userData.firstName,
             lastName: userData.lastName    
         }
-
-        // console.log('getUser from cache response:');
-        // console.log(user);
 
         response.json(user);
         

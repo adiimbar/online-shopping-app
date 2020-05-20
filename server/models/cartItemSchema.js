@@ -15,12 +15,14 @@ const cartItemSchema = {
     // need to adjust
     updateCartItem: {
         quantity: Joi.number()
+        .positive()
+        .max(42)
         .required(),
   
         product_id: Joi.number()
         .required(),
   
-        shopping_cart_id: Joi.number()
+        cartId: Joi.number()
         .required(),
     },
     // need to adjust

@@ -27,8 +27,14 @@ async function addCartItem(cartItem, authorizationString) {
     // await cartItemsDao.addCartItem(cartItem);
 }
 
-async function updateCartItem(cartItem) {
+async function updateCartItem(cartItem, authorizationString) {
+    let userCacheData = await usersLogic.getMe(authorizationString);
+
+    let cartId = userCacheData.userCart;
+    cartItem.cartId = cartId;
+
     await validation.updateCartItemValidation(cartItem);
+
 
     await cartItemsDao.updateCartItem(cartItem);
 }
