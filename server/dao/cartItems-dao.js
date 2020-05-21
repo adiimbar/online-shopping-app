@@ -3,14 +3,14 @@ let connection = require("./connection-wrapper");
 async function addCartItem(cartItem) {
 
     let sql = 'INSERT INTO cart_items (product_id, quantity, shopping_cart_id) VALUES(?, ?, ?)';
-    let parameters = [cartItem.product_id, cartItem.quantity, cartItem.shopping_cart_id];
+    let parameters = [cartItem.product_id, cartItem.quantity, cartItem.cartId];
     await connection.executeWithParameters(sql, parameters);
 }
 
 async function updateCartItem(cartItem) {
 
     let sql = "UPDATE cart_items SET quantity = ? WHERE (product_id=? AND shopping_cart_id=?)";
-    let parameters = [cartItem.quantity, cartItem.product_id, cartItem.shopping_cart_id];
+    let parameters = [cartItem.quantity, cartItem.product_id, cartItem.cartId];
     await connection.executeWithParameters(sql, parameters);
 }
 
@@ -23,7 +23,7 @@ async function deleteItemFromCart(cartItem) {
 // need to change the passed variable to include only product_id and shopping_cart_id
 async function getCartItem(cartItem) {
     let sql = "SELECT * FROM cart_items WHERE (product_id=? AND shopping_cart_id=?)";
-    let parameters = [cartItem.product_id, cartItem.shopping_cart_id];
+    let parameters = [cartItem.product_id, cartItem.cartId];
     let item = await connection.executeWithParameters(sql, parameters);
     // console.log(item);
     return item;

@@ -7,7 +7,7 @@ async function addCartItem(cartItem, authorizationString) {
     let userCacheData = await usersLogic.getMe(authorizationString);
 
     let cartId = userCacheData.userCart;
-    cartItem.shopping_cart_id = cartId;
+    cartItem.cartId = cartId;
     // console.log('cart item obj in cartItem logic');
     // console.log(cartItem);
 
@@ -34,7 +34,6 @@ async function updateCartItem(cartItem, authorizationString) {
     cartItem.cartId = cartId;
 
     await validation.updateCartItemValidation(cartItem);
-
 
     await cartItemsDao.updateCartItem(cartItem);
 }

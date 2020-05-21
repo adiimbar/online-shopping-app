@@ -10,8 +10,8 @@ async function addProduct(product) {
 
 // Only by admin
 async function updateProduct(product) {
-    let sql = "UPDATE products SET product_name = ?, price = ?, image_path = ? WHERE product_id=? ";
-    let parameters = [product.product_name, product.price, product.image_path, product.product_id];
+    let sql = "UPDATE products SET product_name = ?, price = ?, image_path = ?, category_id = ? WHERE product_id=? ";
+    let parameters = [product.productName, product.productPrice, product.productImage, product.category, product.productId];
     // let parameters = [product.product_name, product.price, product.image_path, product.product_id];
     await connection.executeWithParameters(sql, parameters);
 }
@@ -27,6 +27,13 @@ async function getAllProductsByCategoryId(categoryId) {
     let parameters = [categoryId];
     let products = await connection.executeWithParameters(sql, parameters);
     return products;
+}
+
+async function getProductById(productId) {
+    let sql = "SELECT * FROM products WHERE product_id = ?";
+    let parameters = [productId];
+    let product = await connection.executeWithParameters(sql, parameters);
+    return product;
 }
 
 async function getProductByName(productName) {
@@ -51,7 +58,8 @@ module.exports = {
     updateProduct,
     getAllProducts,
     getAllProductsByCategoryId,
-    getProductByName
+    getProductByName,
+    getProductById
     
     // deleteProduct,
 };

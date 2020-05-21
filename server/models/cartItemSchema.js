@@ -9,7 +9,7 @@ const cartItemSchema = {
         quantity: Joi.number()
         .required(),
   
-        shopping_cart_id: Joi.number()
+        cartId: Joi.number()
         .required(),  
     },
     // need to adjust

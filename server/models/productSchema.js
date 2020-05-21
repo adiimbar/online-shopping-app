@@ -27,6 +27,9 @@ const productSchema = {
         .required(),
   
         productImage: Joi.string()
+        .required(),
+
+        productId: Joi.number()
         .required()
     },
     getProductByName: {

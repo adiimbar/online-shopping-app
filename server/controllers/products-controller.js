@@ -19,11 +19,11 @@ router.post("/", async (request, response) => {
 
 router.put("/", async (request, response) => {
 
-    let user = request.body;
+    let product = request.body;
 
     try {
-        await productsLogic.updateProduct(user);
-        response.status(200).send("secessus! product updated");
+        await productsLogic.updateProduct(product);
+        response.status(200).json({ date: "secessus! product updated"});
 
     } catch (error) {
         console.log(error);
