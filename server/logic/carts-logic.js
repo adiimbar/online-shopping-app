@@ -4,9 +4,9 @@ let ServerError = require("./../errors/server-error");
 let ErrorType = require("../errors/error-type");
 
 
-async function addCart(cart) {
+async function addCart(userId) {
     // Validations
-    await cartsDao.addCart(cart);
+    await cartsDao.addCart(userId);
 }
 
 async function getCartByUserId(userID) {

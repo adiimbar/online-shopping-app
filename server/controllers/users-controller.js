@@ -111,21 +111,20 @@ router.get("/:id", async (request, response) => {
 
 });
 
-// update - change user password
-// POST http://localhost:3000/users/
-router.put("/updatePassword", async (request, response) => {
+// // update - change user password
+// router.put("/updatePassword", async (request, response) => {
 
-    let user = request.body;
+//     let user = request.body;
 
-    try {
-        await usersLogic.changePassword(user);
-        response.status(200).send(user.name + " password was changed");
+//     try {
+//         await usersLogic.changePassword(user);
+//         response.status(200).send(user.name + " password was changed");
 
-    } catch (error) {
-        console.log(error);
-        response.status(401).json({ error: "something went terribly wrong..."});
-    }
-});
+//     } catch (error) {
+//         console.log(error);
+//         response.status(401).json({ error: "something went terribly wrong..."});
+//     }
+// });
 
 // update - change user address
 router.put("/", async (request, response) => {
@@ -156,17 +155,5 @@ router.delete("/:id", async (request, response) => {
 
 });
 
-
 module.exports = router;
 
-
-
-// {
-//     "user_id": "000000000",
-//     "name": "samwise",
-//     "surname": "gamgee",
-//     "email": "awesomehobbit@gmail.com",
-//     "password": "1234",
-//     "city": "the shire",
-//     "street": "shire street"
-// }

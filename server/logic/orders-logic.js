@@ -76,7 +76,3 @@ module.exports = {
     getNumberOfOrders
 };
 
-
-
-// addOrderFromCart("987654321");
-

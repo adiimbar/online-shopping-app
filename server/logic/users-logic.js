@@ -1,9 +1,9 @@
 let usersDao = require("../dao/users-dao");
+let cartsLogic = require('./carts-logic');
 const jwt = require('jsonwebtoken');
 const config = require('../config.json');
 let ServerError = require("./../errors/server-error");
 let ErrorType = require("../errors/error-type");
-let cartsLogic = require("../logic/carts-logic");
 
 const crypto = require("crypto");
 const saltRight = "sdkjfhdskajh";
@@ -24,9 +24,8 @@ async function addUser(user) {
     //     throw new ServerError(ErrorType.USER_NAME_ALREADY_EXIST);
     // }
 
-        // hash password
+    // hash password
     user.password = crypto.createHash("md5").update(saltLeft + user.password + saltRight).digest("hex");
-    // console.log("Hashed password : " + user.password);
 
     await usersDao.addUser(user);
 }
@@ -66,13 +65,9 @@ async function login(user) {
 
     let usersLoginResult = await usersDao.login(user);
 
-    // console.log(usersLoginResult);
-
     if (usersLoginResult == null || usersLoginResult.length == 0) {
         throw new ServerError(ErrorType.UNAUTHORIZED);
     }
-
-    // console.log(usersLoginResult);
 
     let email = usersLoginResult[0].email;
     let userType = usersLoginResult[0].type;
@@ -83,11 +78,11 @@ async function login(user) {
     let lastName = usersLoginResult[0].lastName;
     let cartId = usersLoginResult[0].cart_id;
 
-    //  Creates a cart for the user if the he dose not have one
+    //  Creates a cart for the user if he dose not have one
     if (cartId === null) {
         await cartsLogic.addCart(userId);
-        cartId = await cartsLogic.getCartByUserId(userId);
-        console.log(cartId);
+        newCartId = await cartsLogic.getCartByUserId(userId);
+        cartId = newCartId[0].cart_id;
     }
 
     let userData = {
@@ -102,11 +97,8 @@ async function login(user) {
     };
 
     const token = jwt.sign({ sub: email }, config.secret);
-    // need to save to cache
+    // save to cache
     usersCache.set(token, userData);
-
-    // console.log('user cache by token: ');
-    // console.log(usersCache.get(token));
 
     return {token:token, userType:userType};
 }
@@ -124,8 +116,6 @@ async function getMe(authorizationString) {
 }
 
 
-
-// need to consider not giving user type for COSTUMER request 
 async function getUser(id) {
 
     // let authorizationString = request.headers["authorization"];
@@ -133,11 +123,6 @@ async function getUser(id) {
     // // Removing the bearer prefix, leaving the clean token
     // let token = authorizationString.substring("Bearer ".length);
     // let userData = usersCache.get(token);
-
-    // console.log("token : " + token);
-    // console.log("User data " + JSON.stringify(userData));
-
-    console.log("***********" + usersCache);
 
     let user = await usersDao.getUser(id);
     // console.log(user);
@@ -163,28 +148,3 @@ module.exports = {
     getMe
 };
 
-
-
-
-// let user = {
-//    identification: "000000000",
-//    email: "yourmama@gmail.com",
-//    password: "1234",
-//    confirmPassword: "1234",
-//    firstName: "Rick",
-//    lastName: "Sanchez",
-//    city: "asdf",
-//    street: "qwer"
-// }
-
-// addUser(user);
-
-// updateUserType(user);
-
-// getUser(9);
-
-// deleteUser(9);
-
-// changePassword(user);
-
-// login(user);

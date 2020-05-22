@@ -18,14 +18,14 @@ async function getCartByUserId(userId) {
     
     let parameters = [userId];
     let userCart = await connection.executeWithParameters(sql, parameters);
-    console.log(userCart);
+    // console.log(userCart);
     return userCart;
 }
 
 async function getAllCarts() {
     let sql = "SELECT * FROM shopping_carts";
     let carts = await connection.execute(sql);
-    console.log(carts);
+    // console.log(carts);
     return carts;
 }
 

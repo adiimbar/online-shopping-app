@@ -16,11 +16,6 @@ async function addUser(user) {
     }
 }
 
-// async function isUserExistByName(name) {
-//     // A MOCK
-//     return false;
-// }
-
 
 // Only by admin
 async function updateUserType(user) {
@@ -68,7 +63,7 @@ async function updateUserAddress(user) {
 async function getAllUsers() {
     let sql = "SELECT * FROM users";
     let users = await connection.execute(sql);
-    console.log(users);
+    // console.log(users);
     return users;
 }
 

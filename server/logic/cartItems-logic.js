@@ -8,23 +8,17 @@ async function addCartItem(cartItem, authorizationString) {
 
     let cartId = userCacheData.userCart;
     cartItem.cartId = cartId;
-    // console.log('cart item obj in cartItem logic');
-    // console.log(cartItem);
 
     await validation.addCartItemValidation(cartItem);
 
     let isItemInCart = await cartItemsDao.getCartItem(cartItem);
-    // console.log(isItemInCart);
     // if the item is not in the cart it will be added - using addCartItem
     // and if the item is already in the cart it will be updated
     if (isItemInCart == null || isItemInCart.length == 0) {
         await cartItemsDao.addCartItem(cartItem);
     } else {
-        // updateCartItem(cartItem);
         await cartItemsDao.updateCartItem(cartItem);
     }
-
-    // await cartItemsDao.addCartItem(cartItem);
 }
 
 async function updateCartItem(cartItem, authorizationString) {
