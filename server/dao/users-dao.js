@@ -9,8 +9,10 @@ async function addUser(user) {
         await connection.executeWithParameters(sql, parameters);
     }
     catch (e) {
+        console.log('inside add user erorr');
         // the error will probably be - duplicate entry
-        throw new ServerError(ErrorType.GENERAL_ERROR, sql, e);
+        // throw new ServerError(ErrorType.GENERAL_ERROR, sql, e);
+        throw new ServerError(ErrorType.EMAIL_ALREADY_REGISTERED, JSON.stringify(user), e);
     }
 }
 

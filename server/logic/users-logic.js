@@ -53,7 +53,8 @@ async function changePassword(user) {
 async function updateUserAddress(user) {
     // Validations
     // await (userValidation(user))
-    await usersDao.updateUserAddress(user);
+    let addUserResult = await usersDao.updateUserAddress(user);    
+    return addUserResult;
 }
 
 async function login(user) {

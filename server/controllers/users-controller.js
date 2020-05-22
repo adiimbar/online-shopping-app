@@ -35,7 +35,7 @@ router.post("/", async (request, response) => {
 
     try {
         await usersLogic.addUser(user);
-        response.status(200).send("user added");
+        response.status(200).json({ date: "user added"});
 
     } catch (error) {
         console.log(error);
