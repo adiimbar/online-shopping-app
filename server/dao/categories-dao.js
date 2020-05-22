@@ -61,4 +61,3 @@ module.exports = {
 };
 
 
-// getAllCategoryProducts(1);

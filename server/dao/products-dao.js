@@ -44,6 +44,12 @@ async function getProductByName(productName) {
     return products;
 }
 
+async function getNumberOfProducts() {
+    let sql = "SELECT COUNT(product_id) AS numOfProducts FROM products";
+    let orders = await connection.execute(sql);
+    return orders;
+}
+  
 
 // // Only by admin
 // async function deleteProduct(id) {
@@ -59,28 +65,10 @@ module.exports = {
     getAllProducts,
     getAllProductsByCategoryId,
     getProductByName,
-    getProductById
+    getProductById,
+    getNumberOfProducts
     
     // deleteProduct,
 };
 
 
-let product = {
-    product_name: 'Yogurt',
-    category_id: 1,
-    price: 42,
-    image_path: 'yogurt.image',
-    product_id: 3
-};
-
-
-
-// addProduct(product);
-
-// updateProduct(product);
-
-// getProduct(1);
-
-// getAllProducts();
-
-// deleteProduct(1)

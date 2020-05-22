@@ -1,6 +1,7 @@
 let ordersDao = require("../dao/orders-dao");
 let usersLogic = require("./users-logic");
 let cartItemsLogic = require("../logic/cartItems-logic");
+let productsLogic = require("../logic/products-logic");
 const validation = require("../validation/validation");
 
 
@@ -20,12 +21,7 @@ async function getAllUserOrders(userId) {
 
 async function addOrder(order, authorizationString) {
 
-    // console.log('inside orders logic');
-    // console.log(order);
-
     let userCacheData = await usersLogic.getMe(authorizationString);
-
-    // console.log(userCacheData);
 
     let totalPrice = await cartItemsLogic.getCartItemsTotalPrice(userCacheData.userCart);
     // let cartItems = getAllCartItems(authorizationString);
@@ -37,9 +33,6 @@ async function addOrder(order, authorizationString) {
     order.userId = userCacheData.userId;
     order.totalPrice = totalPrice;
     
-    // console.log('order obj in orders logic');
-    // console.log(order);
-
     // Validations
 
     await ordersDao.addOrder(order);
@@ -60,13 +53,27 @@ async function deleteOrder(orderId) {
     await ordersDao.deleteOrder(orderId);
 }
 
+async function getNumberOfOrders() {
+    // Validations
+    let numberOfOrders = await ordersDao.getNumberOfOrders();
+    let numberOfProducts = await productsLogic.getNumberOfProducts();
+
+    let storeDetails = {
+        numberOfOrders: numberOfOrders[0].numOfOrders,
+        numberOfProducts: numberOfProducts[0].numOfProducts
+    }
+
+    return storeDetails
+}
+
 module.exports = {
     getAllOrders,
     getAllUserOrders,
     addOrder,
     updateOrder,
     updateOrderStatus,
-    deleteOrder
+    deleteOrder,
+    getNumberOfOrders
 };
 
 

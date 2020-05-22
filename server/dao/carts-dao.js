@@ -46,11 +46,3 @@ module.exports = {
     getAllCarts,
     deleteCart
 };
-
-// addCart(1);
-
-// getCartByUserId(1);
-
-// deleteCart(4);
-
-// getAllCarts();

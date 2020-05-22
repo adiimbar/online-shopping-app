@@ -54,6 +54,12 @@ async function getProductByName(productName) {
     return product;
 }
 
+async function getNumberOfProducts() {
+    // Validations
+    let numberOfProducts = await productsDao.getNumberOfProducts();
+    return numberOfProducts
+}
+
 // async function deleteProduct(id) {
 //     await usersDao.deleteProduct(id);
 // }
@@ -64,7 +70,8 @@ module.exports = {
     updateProduct,
     getAllProducts,
     getAllProductsByCategoryId,
-    getProductByName
+    getProductByName,
+    getNumberOfProducts
     // deleteProduct
 };
 

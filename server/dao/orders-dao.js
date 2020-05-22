@@ -44,7 +44,11 @@ async function deleteOrder(orderId) {
 }
 
 
-
+async function getNumberOfOrders() {
+  let sql = "SELECT COUNT(order_id) AS numOfOrders FROM orders";
+  let orders = await connection.execute(sql);
+  return orders;
+}
 
 
 // // the call gets info for an order
@@ -75,27 +79,8 @@ module.exports = {
   addOrder,
   updateOrder,
   updateOrderStatus,
-  deleteOrder
+  deleteOrder,
+  getNumberOfOrders
 };
 
 
-// getOrderFromCart({user_id: "987654321"});
-
-
-
-
-let order = {
-  userId: 987654321,
-  cartId: 4,
-  totalPrice: 42,
-  City: "Tel Aviv",
-  Street: "hamasger 42",
-  deliveryDate: '2020-04-25',
-  last_4_credit_digits: 1234
-}
-
-// addOrder(order);
-
-// getAllUserOrders(987654321);
-
-// getAllOrders();

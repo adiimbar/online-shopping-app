@@ -15,6 +15,19 @@ router.get("/", async (request, response) => {
     }
 });
 
+// get number of orders
+router.get("/getNumberOfOrders", async (request, response) => {
+
+    try {
+        let userOrders = await ordersLogic.getNumberOfOrders();
+        response.json(userOrders);
+
+    } catch (error) {
+        console.log(error);
+        response.status(401).send("something went terribly wrong...");
+    }
+});
+
 
 // get user orders
 router.get("/:id", async (request, response) => {
@@ -47,46 +60,49 @@ router.post("/", async (request, response) => {
     }
 });
 
-router.put("/", async (request, response) => {
 
-    let order = request.body;
 
-    try {
-        await ordersLogic.updateOrder(order);
-        response.status(200).send();
 
-    } catch (error) {
-        console.log(error);
-        response.status(401).send("something went terribly wrong...");
-    }
-});
+// router.put("/", async (request, response) => {
 
-router.put("/updateOrderStatus", async (request, response) => {
+//     let order = request.body;
 
-    let order = request.body;
+//     try {
+//         await ordersLogic.updateOrder(order);
+//         response.status(200).send();
 
-    try {
-        await ordersLogic.updateOrderStatus(order);
-        response.status(200).send();
+//     } catch (error) {
+//         console.log(error);
+//         response.status(401).send("something went terribly wrong...");
+//     }
+// });
 
-    } catch (error) {
-        console.log(error);
-        response.status(401).send("something went terribly wrong...");
-    }
-});
+// router.put("/updateOrderStatus", async (request, response) => {
 
-router.delete("/:id", async (request, response) => {
+//     let order = request.body;
 
-    let orderId = request.params.id;
+//     try {
+//         await ordersLogic.updateOrderStatus(order);
+//         response.status(200).send();
 
-    try {
-        await ordersLogic.deleteOrder(orderId);
-        response.status(200).send("order deleted");
+//     } catch (error) {
+//         console.log(error);
+//         response.status(401).send("something went terribly wrong...");
+//     }
+// });
 
-    } catch (error) {
-        console.log(error);
-        response.status(401).send("something went terribly wrong...");
-    }
-});
+// router.delete("/:id", async (request, response) => {
+
+//     let orderId = request.params.id;
+
+//     try {
+//         await ordersLogic.deleteOrder(orderId);
+//         response.status(200).send("order deleted");
+
+//     } catch (error) {
+//         console.log(error);
+//         response.status(401).send("something went terribly wrong...");
+//     }
+// });
 
 module.exports = router;

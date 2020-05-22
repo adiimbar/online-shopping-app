@@ -90,33 +90,3 @@ module.exports = {
 };
 
 
-
-// getSumPerItemAndQuantityFromCart(8);
-
-
-// let cartItem =  { productID: "3", cartID: "4" };
-
-
-// getCartItem(cartItem);
-
-let cartItem = {
-    product_id: 5,
-    quantity: 42,
-    products_price: 13,
-    shopping_cart_id: 8
-}
-
-// addCartItem(cartItem);
-
-// updateCartItem(cartItem);
-
-// getCartItem(cartItem);
-
-// getAllCartItems(4)
-
-// deleteItemFromCart(cartItem);
-
-// let cartId = 8;
-// getAllCartItems(cartId);
-
-// getTotalPriceFromCart(12);
