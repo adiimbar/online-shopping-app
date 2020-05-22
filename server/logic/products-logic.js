@@ -3,6 +3,9 @@ const validation = require("../validation/validation");
 
 
 async function addProduct(product) {
+
+    delete product.productId;
+
     await validation.addProductValidation(product);
 
     await productsDao.addProduct(product);

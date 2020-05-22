@@ -55,11 +55,8 @@ server.use("/categories", categoriesController);
 
 // get image
 server.get("/uploads/:name", (request, response)=>{       
-    // Extracting the filename
-    let fileName = request.params.name;
 
-    // console.log(fileName);
-    // console.log(__dirname);
+    let fileName = request.params.name;
 
     let fullQualifiedFileName = __dirname + "/uploads/"+fileName;
     
